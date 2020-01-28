@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:43:16 by javrodri          #+#    #+#             */
-/*   Updated: 2020/01/25 14:21:25 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/01/28 19:34:40 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void    params_initialice(t_params *p, char *map)
 
 void    mlx_win_init(t_params *p)
 {
-    char    *title;
+    //char    *title;
 
-    title = ft_strjoin("Cube3d : ", p->map_name);
+   // title = ft_strjoin("Cube3d : ", p->map_name);
     p->mlx_ptr = mlx_init();
-    p->mlx_ptr = mlx_new_window(p->mlx_ptr, screenWidth, screenHeight, title);
-    ft_strdel(&title);
+    p->win_ptr = mlx_new_window(p->mlx_ptr, p->win_width, p->win_height, "Cub3d :");
+    //ft_strdel(&title);
 }
 
 void		map_error_check(t_params *p)

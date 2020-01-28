@@ -6,13 +6,13 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 12:38:23 by javrodri          #+#    #+#             */
-/*   Updated: 2020/01/25 14:25:36 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/01/28 08:36:16 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
+/*
 int loop_draw(t_params *p)
 {
      
@@ -95,7 +95,7 @@ int loop_draw(t_params *p)
             p->color = RGB_YELLOW;
         if (p->side == 1)
             p->color = p->color / 2;
-/*
+
         p->texNum = p->map[p->mapX][p->mapY];
         if(p->side == 0)
             p->wallX = p->posY + p->perpWallDist * p->rayDirY;
@@ -108,8 +108,8 @@ int loop_draw(t_params *p)
             p->texX = p->tex_width - p->texX - 1;
         else if (p->side == 1 && p->rayDirY < 0)
             p->texX = p->tex_width - p->texX - 1;
-*/
-    //if (p->texture == 0){
+
+    if (p->texture == 0){
         if (p->drawStart > 0)
         {
             p->color = 0x66CCFF;
@@ -133,7 +133,7 @@ int loop_draw(t_params *p)
         }
 
         
-/*
+
         int r = p->drawEnd;
         while (r < screenHeight)
         {
@@ -148,7 +148,7 @@ int loop_draw(t_params *p)
                 p->drawEnd++;
             }
         }
- */      
+       
         screen_draw(x, p);
         p->hit = 0;
 
@@ -166,7 +166,7 @@ int loop_draw(t_params *p)
     }
     mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr, 0, 0);
     return (0);
-}
+}*/
 
 void        screen_draw(int x, t_params *p)
 {
@@ -199,6 +199,8 @@ void raycasting(t_params *p)
             p->color = p->color / 2;
         draw_wall(p->x, p->drawStart - 1, p->drawEnd, p);
     }
+    mlx_put_image_to_window(p->mlx_ptr, p->win_ptr, p->img_ptr, 0, 0);
+    mlx_destroy_image(p->mlx_ptr, p->img_ptr);
 }
 
 void        dda(t_params *p)

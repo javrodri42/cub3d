@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 12:17:40 by javrodri          #+#    #+#             */
-/*   Updated: 2020/01/25 11:39:21 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:51:40 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,55 @@ void	ft_strdel(char **as)
 		return ;
 	free(*as);
 	*as = NULL;
+}
+
+size_t	ft_linelen(const char *s)
+{
+	size_t	count;
+
+	count = 0;
+	while (s[count] && s[count] != '\n')
+		count++;
+	return (count);
+}
+
+int		ft_countlines(char *str)
+{
+	int		lines;
+
+	lines = 0;
+	if (!str)
+		return (-1);
+	while (*str)
+	{
+		if (*str == '\n')
+			lines++;
+		str++;
+	}
+	return (lines);
+}
+
+char	*ft_strnew(size_t size)
+{
+	char	*str;
+
+	if ((str = (char *)malloc(size + 1)) == NULL)
+		return (NULL);
+	ft_memset(str, (int)'\0', size + 1);
+	return (str);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned char	*tmp;
+	size_t			i;
+
+	tmp = (unsigned char *)b;
+	i = 0;
+	while (i < len)
+	{
+		tmp[i] = (unsigned char)c;
+		i++;
+	}
+	return (b);
 }

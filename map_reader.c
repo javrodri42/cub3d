@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/17 17:13:35 by javrodri          #+#    #+#             */
-/*   Updated: 2020/01/25 11:47:56 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/01/28 19:32:11 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,69 +29,19 @@ static void	map_reader_check(t_params *p, int fd)
 		close_failure("Error\nNo correct file format\n");
 }
 
-static char ft_delete_spaces(char *text)
-{
-   char  blank[1000];
-   int c = 0, d = 0;
-     
-   while (text[c] != '\0') 
-   {
-      if (text[c] == ' ') 
-	  {
-         int temp = c + 1;
-         if (text[temp] != '\0') 
-		 {
-            while (text[temp] == ' ' && text[temp] != '\0') 
-			{
-               if (text[temp] == ' ') 
-			   {
-                  c++;
-               }  
-               temp++;
-            }
-         }
-      }
-      blank[d] = text[c];
-      c++;
-      d++;
-   }
- 
-   blank[d] = '\0';
-   
-   return(*blank);
-}
-
-
-/*
-char	ft_delete_spaces(char *line)
-{
-	char	*aux;
-	int		i;
-
-	i = 0;
-	//line = (char *)line;
-	while(line)
-	{
-		if (line[i] == " ")
-			i++;
-		else
-		{
-			aux[i] = line[i];
-			i++;
-		}
-	}
-	return (*aux);
-}*/
-
-void		map_reader(t_params *p, char **argv)
+void		map_reader(t_params *p, char *map)
 {
 	int		fd;
 	char	*line;
 	int		i;
+	
+	printf("----------------");
 
-	if ((fd = open(p->map_file, O_RDONLY)) == -1)
+	if ((fd = open(map, O_RDONLY)) == -1)
 	    close_failure("Error\nCan not open file\n");
 	map_reader_check(p, fd);
+	printf("----------------");
+	
 	while (get_next_line(fd, &line))
 	{
 		i = -1;
@@ -102,13 +52,17 @@ void		map_reader(t_params *p, char **argv)
 			p->map[p->map_height][i] = line[i] - '0';
 		p->map_height++;
 	}
+	printf("----------------");
+
 	i = -1;
 	while (++i < p->map_width)
 		p->map[p->map_height][i] = line[i] - '0';
 	p->map_height++;
+	free(line);
 	map_position(p);
 	//map_error_check(p);
-	free(line);
+	printf("----------------");
+
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 18:38:34 by javrodri          #+#    #+#             */
-/*   Updated: 2020/01/25 14:16:12 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/01/28 19:33:58 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct  s_params
     double      oldplaneX;
     int         color_sky;
     int         color_floor;
-    int         tex_y;
     int         fd;
     int         map[1000][1000];
     char        *map_file;
@@ -97,10 +96,16 @@ typedef struct  s_params
     int         tex_height;
     int         texNum;
     double      wallX;
+    int         texY;
     int         texX;
     int         y;
     int         x;
     int         texture;
+    int         id;
+    int			nb_lines;
+	int			lenline;
+	//int			bpp;
+	//int			endian;
    
 }               t_params;
 
@@ -149,6 +154,10 @@ typedef struct  s_params
 */ 
 
 int				get_next_line(int fd, char **line);
+int		        parser(t_params *t, char **av);
+int		        check_side(t_params *t);
+int		        parser2(t_params *t, char **av);
+int     		check_map(char *buff, t_params *t);
 
 /*
 ** Initialize
@@ -177,6 +186,11 @@ char	        *ft_strdup(const char *src);
 char	        *ft_strchr(const char *s, int c);
 int             ft_strcmp(char *s1, char *s2);
 void        	ft_strdel(char **as);
+void	        *ft_memset(void *b, int c, size_t len);
+char	        *ft_strnew(size_t size);
+int		        ft_countlines(char *str);
+size_t      	ft_linelen(const char *s);
+
 
 /*
 ** Map Position
@@ -188,10 +202,33 @@ void            orientation_e(t_params *p, int i, int j);
 void            orientation_w(t_params *p, int i, int j);
 
 /*
+** Draw
+*/
+
+void            floor_roof(t_params *p, int x);
+void            draw_wall(int x, int start, int end, t_params *p);
+void            put_pxl_to_img(t_params *p, int x, int y, int color);
+
+
+/*
 ** Textures
 */
 
 void            load_textures(t_params *p);
+
+/*
+** Raycasting
+*/
+
+void            dda(t_params *p);
+void            raycasting(t_params *p);
+void            screen_draw(int x, t_params *p);
+
+
+
+
+
+
 
 int             main(int argc, char **argv);
 int             loop_draw(t_params *p);
@@ -205,7 +242,7 @@ int             key_press(int key, t_params *p);
 int             key_release(int key, t_params *p);
 void            rotation(t_params *p);
 void            screen_draw(int x, t_params *p);
-void            map_reader(t_params *p);
+void		    map_reader(t_params *p, char *map);
 void		    map_position(t_params *p);
 void		    map_error_check(t_params *p);
 
