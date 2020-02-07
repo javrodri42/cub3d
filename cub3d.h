@@ -5,274 +5,169 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/07 18:38:34 by javrodri          #+#    #+#             */
-/*   Updated: 2020/01/28 19:33:58 by javrodri         ###   ########.fr       */
+/*   Created: 2020/02/04 08:05:12 by javrodri          #+#    #+#             */
+/*   Updated: 2020/02/07 17:10:11 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	CUB3D_H
+#ifndef CUB3D_H
 # define CUB3D_H
 
-#include "mlx.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <math.h>
-# include <string.h>
+//# include "libft.h"
 # include <stdlib.h>
+# include <unistd.h>
 # include <fcntl.h>
+# include <mlx.h>
+# include <math.h>
+# include <stdio.h>
 
-typedef struct	s_textures
+# define WINX 1024
+# define WINY 768
+# define USAGE "usage: wolf3d \"map\"\n"
+# define BUFF_SIZE 8
+
+
+typedef struct	s_tex
 {
 	void		*img;
 	char		*data;
 	int			bpp;
 	int			sizeline;
 	int			endian;
-}				t_textures;
+}				t_tex;
 
-typedef struct  s_params
+typedef struct	s_wolf3d
 {
-    void        *mlx_ptr;
-    void        *win_ptr;
-    void        *img_ptr;
+	t_tex		tex[9];
+	char		*map_name;
+	void		*mlx;
+	void		*win;
 	void		*img;
-    void        *img_data;
+	void		*img_ptr;
+	int			**map;
     int         win_width;
     int         win_height;
-    char        *map_name;
-    double      posX;
-    double      posY;
-    double      dirX;
-    double      dirY;
-    double      time;
-    double      oldtime;
-    int         hit;
-    int         side;
-    int         color;
-    double      planeX;
-    double      planeY;
-    int         drawStart;
-    int         drawEnd;
-    int         bpp;
-    int         size_line;
-    int         endian;
-    double      sideDistX;
-    double      sideDistY;
-    double	    deltaDistX;
-	double	    deltaDistY;
-    double      rayDirX;
-    double      rayDirY;
-    int         stepX;
-    int         stepY;
-    int         lineHeight;
-    double      perpWallDist;
-    double      frametime;
-    double      rotSpeed;
-    double      moveSpeed;
-    int         mapX;
-    int         mapY;
-    int         key;
-    int         flag_front;
-    int         flag_back;
-    int         flag_right;
-    int         flag_left;
-    int         flag_rotate_right;
-    int         flag_rotate_left;
-    int         flag_view_up;
-    double      cameraX;
-    double      cameraY;
-    double      olddirX;
-    double      oldplaneX;
-    int         color_sky;
-    int         color_floor;
-    int         fd;
-    int         map[1000][1000];
-    char        *map_file;
     int         map_width;
     int         map_height;
-    int		    initial_pos;
-    t_textures  tex[10];
-    int         tex_width;
-    int         tex_height;
-    int         texNum;
-    double      wallX;
-    int         texY;
-    int         texX;
-    int         y;
-    int         x;
-    int         texture;
-    int         id;
-    int			nb_lines;
+	int			nb_lines;
 	int			lenline;
-	//int			bpp;
-	//int			endian;
-   
-}               t_params;
+	int			bpp;
+	int			endian;
+	int			sl;
+	int			x_map;
+	int			y_map;
+	int			x_step;
+	int			y_step;
+	int			hit;
+	int			side;
+	int			lineheight;
+	int			start;
+	int			end;
+	int			color;
+	int			move_up;
+	int			move_down;
+	int			move_left;
+	int			move_right;
+	int			help;
+	int			x_text;
+	int			y_text;
+	int			id;
+	int			texture;
+	int			x_floortext;
+	int			y_floortext;
+	int			x;
+	int			y;
+	int			initial_pos;
+	int			right_mov;
+	int			left_mov;
+	double		movespeed;
+	double		x_pos;
+	double		y_pos;
+	double		x_dir;
+	double		y_dir;
+	double		x_plane;
+	double		y_plane;
+	double		x_cam;
+	double		x_raypos;
+	double		y_raypos;
+	double		x_raydir;
+	double		y_raydir;
+	double		x_sidedist;
+	double		y_sidedist;
+	double		x_deltadist;
+	double		y_deltadist;
+	double		walldist;
+	double		x_olddir;
+	double		x_oldplane;
+	double		ms;
+	double		rs;
+	double		x_wall;
+	double		x_floor;
+	double		y_floor;
+	double		x_curfloortext;
+	double		y_curfloortext;
+	double		curdist;
+	double		weight;
+}				t_params;
 
+void			draw_sky(t_params *p);
+void			draw_floor(t_params *p);
+void			draw_wall(int x, int start, int end, t_params *p);
+void			put_pxl_to_img(t_params *p, int x, int y, int color);
 
-#define mapWidth 24
-#define mapHeight 24
-#define screenWidth 1280
-#define screenHeight 960
-#define BUFFER_SIZE 100
+int				key_press2(int keycode, t_params *p);
+int				key_press(int keycode, t_params *p);
+int				key_release(int keycode, t_params *p);
+void			move_side(t_params *p);
+int				move(t_params *p);
 
-/*
-** Define colors
-*/
+void			help_text(t_params *p);
 
-# define RGB_WHITE 0xFFFFFF
-# define RGB_BLACK 0x000000
-# define RGB_RED 0xFF0000
-# define RGB_GREEN 0x00FF00
-# define RGB_BLUE 0x0000FF
-# define RGB_YELLOW 0xFFFF00
-# define RGB_CHOCOLATE 0xD2691E
-# define RGB_GRAY 0x808080
-# define RGB_DARKGRAY 0x2F4F4F
-# define RGB_INDIGO 0x4B0082
-# define RGB_TOMATO 0xFF6347
-# define RGB_DARKBLUE 0x00008B
-# define RGB_BLUESKY 0x87FFFA
+void			load_textures(t_params *p);
+void			load_textures2(t_params *p, int a, int b);
 
-/*
-** Define keys
-*/
+int				ft_close(t_params *p);
+void			mlx_win_init(t_params *p);
+void			wolf3d_init(t_params *p);
 
-# define UP 126
-# define DOWN 125
-# define RIGHT 124
-# define LEFT 123
-# define ESC 53
-# define A 0
-# define W 13
-# define S 1
-# define D 2
-# define VIEW_UP 30
+int				check_map(char *buff, t_params *p);
+int				map_parser(t_params *p, char **av);
+int				parser2(t_params *p, char **av);
 
-/*
-** Get_next_line functions
-*/ 
+void			ray_casting(t_params *p);
+void			ray_casting_init(t_params *p, int x);
+void			floor_and_ceiling(t_params *p, int x);
+void			dda(t_params *p);
+void			dda_init(t_params *p);
 
-int				get_next_line(int fd, char **line);
-int		        parser(t_params *t, char **av);
-int		        check_side(t_params *t);
-int		        parser2(t_params *t, char **av);
-int     		check_map(char *buff, t_params *t);
-
-/*
-** Initialize
-*/
-
-void            dda_init(t_params *p);
-void            raycasting_init(t_params *p, int x);
-void            params_initialice(t_params *p, char *map);
-void	        mlx_win_init(t_params *t);
-
-/*
-** Utils
-*/ 
-
-size_t	        ft_strlen(const char *str);
 void	        *ft_memcpy(void *dst, const void *src, size_t n);
-char			*ft_substr(char const *s, unsigned int start, ssize_t len);
+char	        *ft_substr(const char *s, unsigned int start, ssize_t len);
 int		        close_success(t_params *p);
 int		        close_failure(char *message);
-void        	ft_putstr(const char *str);
-int		       	ft_atoi(const char *str);
-char	    	*ft_itoa(int n);
 void	        ft_putchar(char c);
-char	        *ft_strjoin(char const *s1, char const *s2);
-char	        *ft_strdup(const char *src);
-char	        *ft_strchr(const char *s, int c);
-int             ft_strcmp(char *s1, char *s2);
-void        	ft_strdel(char **as);
-void	        *ft_memset(void *b, int c, size_t len);
-char	        *ft_strnew(size_t size);
+int	            ft_strcmp(char *s1, char *s2);
+void	        ft_strdel(char **as);
+size_t	        ft_linelen(const char *s);
 int		        ft_countlines(char *str);
-size_t      	ft_linelen(const char *s);
+char	        *ft_strnew(size_t size);
+void	        *ft_memset(void *b, int c, size_t len);
+int			    get_next_line(const int fd, char **line);
+size_t	        ft_strlen(const char *str);
+char	        *ft_strjoin(char const *s1, char const *s2);
+char	        *ft_strchr(const char *s, int c);
+char	        *ft_strdup(const char *s1);
+void	        ft_putstr(const char *str);
+int			    ft_atoi(const char *str);
+char		    *ft_itoa(int n);
+void        	orientation_n(t_params *p, int i, int j);
+void       		orientation_s(t_params *p, int i, int j);
+void       		orientation_e(t_params *p, int i, int j);
+void        	orientation_w(t_params *p, int i, int j);
+void			map_position(t_params *p);
+void			map_reader(t_params *p, char *map);
+void			ft_bzero(void *s, size_t n);
+void			*ft_memmove(void *dst, const void *src, size_t len);
+void			map_reader_check(t_params *p, int fd);
+void			move_right_left(t_params *p);
 
-
-/*
-** Map Position
-*/
-
-void            orientation_n(t_params *p, int i, int j);
-void            orientation_s(t_params *p, int i, int j);
-void            orientation_e(t_params *p, int i, int j);
-void            orientation_w(t_params *p, int i, int j);
-
-/*
-** Draw
-*/
-
-void            floor_roof(t_params *p, int x);
-void            draw_wall(int x, int start, int end, t_params *p);
-void            put_pxl_to_img(t_params *p, int x, int y, int color);
-
-
-/*
-** Textures
-*/
-
-void            load_textures(t_params *p);
-
-/*
-** Raycasting
-*/
-
-void            dda(t_params *p);
-void            raycasting(t_params *p);
-void            screen_draw(int x, t_params *p);
-
-
-
-
-
-
-
-int             main(int argc, char **argv);
-int             loop_draw(t_params *p);
-int             ft_movement(t_params *p);
-void            walk_front(t_params *p);
-void            walk_back(t_params *p);
-void            walk_left(t_params *p);
-void            walk_right(t_params *p);
-int             close_success(t_params *p);
-int             key_press(int key, t_params *p);
-int             key_release(int key, t_params *p);
-void            rotation(t_params *p);
-void            screen_draw(int x, t_params *p);
-void		    map_reader(t_params *p, char *map);
-void		    map_position(t_params *p);
-void		    map_error_check(t_params *p);
-
-
-/*
-int map[mapWidth][mapHeight] = {
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-    {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-    {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
-
-*/
 #endif

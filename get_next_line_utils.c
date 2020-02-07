@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvega-tr <fvega-tr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:21:10 by fvega-tr          #+#    #+#             */
-/*   Updated: 2020/01/12 18:21:12 by fvega-tr         ###   ########.fr       */
+/*   Updated: 2020/02/07 09:04:29 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,33 @@ char	*ft_strdup(const char *s1)
 	}
 	s[i] = 0;
 	return (s);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*ptr;
+
+	ptr = (unsigned char*)s;
+	while (n-- > 0)
+		*(ptr++) = 0;
+}
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	size_t				i;
+	unsigned char		*ptr;
+	const unsigned char	*ptr2;
+
+	ptr = (unsigned char*)dst;
+	ptr2 = (unsigned char*)src;
+	i = 0;
+	if (dst == src)
+		return (dst);
+	if (ptr2 < ptr)
+		while (++i <= len)
+			ptr[len - i] = ptr2[len - i];
+	else
+		while (len-- > 0)
+			*(ptr++) = *(ptr2++);
+	return (dst);
 }

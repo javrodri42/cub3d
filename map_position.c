@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:46:47 by javrodri          #+#    #+#             */
-/*   Updated: 2020/01/28 11:39:08 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/07 14:00:25 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,41 @@
 
 void        orientation_n(t_params *p, int i, int j)
 {
-    p->posX = i;
-    p->posY = j;
+    p->x_pos = i;
+    p->y_pos = j;
+	p->x_dir = -1;
+	p->y_dir = 0;
+	p->x_plane = 0;
+	p->y_plane = 0.66;
 }
 
 void        orientation_s(t_params *p, int i, int j)
 {
-    p->posX = i;
-    p->posY = j;
+    p->x_pos = i;
+    p->y_pos = j;
+	p->x_dir = 1;
+	p->x_plane = 0;
+	p->y_plane = -0.66;
 }
 
 void        orientation_e(t_params *p, int i, int j)
 {
-    p->posX = i;
-    p->posY = j;
+    p->x_pos = i;
+    p->y_pos = j;
+	p->x_dir = 0;
+	p->y_dir = 1;
+	p->x_plane = 0.66;
+	p->y_plane = 0;
 }
 
 void        orientation_w(t_params *p, int i, int j)
 {
-    p->posX = i;
-    p->posY = j;
+    p->x_pos = i;
+    p->y_pos = j;
+	p->x_dir = 0;
+	p->y_dir = -1;
+	p->x_plane = -0.66;
+	p->y_plane = 0;
 }
 
 void		map_position(t_params *p)
@@ -42,14 +57,17 @@ void		map_position(t_params *p)
 	int j;
 
 	i = -1;
-	while (++i < p->map_height)
+	while (++i < p->nb_lines)
 	{
 		j = -1;
-		while (++j < p->map_width)
+		while (++j < p->lenline)
 		{
-			if (p->map[i][j] == 'N' - '0' || p->map[i][j] == 'S' - '0' ||
-				p->map[i][j] == 'E' - '0' || p->map[i][j] == 'W' - '0')
+			
+
+			if (p->map[i][j] == 'N' - '0'|| p->map[i][j] == 'S' - '0'||
+				p->map[i][j] == 'E' - '0'|| p->map[i][j] == 'W' - '0')
 			{
+				p->initial_pos++;
 				if (p->map[i][j] == 'N' - '0')
 					orientation_n(p, i, j);
 				else if (p->map[i][j] == 'S' - '0')

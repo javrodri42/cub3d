@@ -5,34 +5,69 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/25 11:14:49 by javrodri          #+#    #+#             */
-/*   Updated: 2020/01/28 19:34:21 by javrodri         ###   ########.fr       */
+/*   Created: 2020/02/04 08:03:54 by javrodri          #+#    #+#             */
+/*   Updated: 2020/02/07 17:12:23 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-
-int     main(int argc, char **argv)
+int		ft_close(t_params *p)
 {
-    t_params *p;
-    int save_opt;
-    
-    save_opt = (argc >= 2 && !ft_strcmp(argv[1], "-save"));
-    if (argc < (2 + save_opt))
-		  close_failure("Error:\nno map specified.\n");
-    if (!(p = (t_params *)malloc(sizeof(t_params))))
-      return (0);
-    /*if (!(parser(p, argv)))
-		  return (0);*/
-    params_initialice(p, argv[1]);
-    map_reader(p, argv[1]);
-    mlx_win_init(p);
-    mlx_hook(p->win_ptr, 17, 1L << 0, close_success, &p);
-    mlx_hook(p->win_ptr, 2, 0, key_press, &p);
-    mlx_hook(p->win_ptr, 3, 0, key_release, &p);
-    raycasting(p);
-    mlx_loop_hook(p->mlx_ptr, ft_movement, p);
-    mlx_loop(p->mlx_ptr);
+	(void)p;
+	//mlx_destroy_image(p->mlx, p->img_ptr);
+	//free(p->map);
+	system("leaks a.out");
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
+void	mlx_win_init(t_params *p)
+{
+	char	*title;
+
+	title = ft_strjoin("Wolf3d : ", p->map_name);
+	p->mlx = mlx_init();
+	p->win = mlx_new_window(p->mlx, WINX, WINY, title);
+	ft_strdel(&title);
+}
+
+void	wolf3d_init(t_params *p)
+{
+	p->ms = 0.05;
+	p->rs = 0.05;
+	p->move_up = 0;
+	p->move_down = 0;
+	p->move_left = 0;
+	p->move_right = 0;
+	p->right_mov = 0;
+	p->left_mov = 0;
+	p->movespeed = 0.0001;
+	p->x_text = 0;
+	p->y_text = 0;
+    p->map_width = 0;
+    p->map_height = 0;
+	p->initial_pos = 0;
+	load_textures(p);
+}
+
+int		main(int ac, char **av)
+{
+	t_params p;
+
+	if (ac != 2)
+	{
+		ft_putstr(USAGE);
+		return (0);
+	}
+	if (!(map_parser(&p, av)))
+		return (0);
+	mlx_win_init(&p);
+	mlx_hook(p.win, 17, 0L, ft_close, &p);
+	mlx_hook(p.win, 2, (1L << 0), key_press, &p);
+	mlx_hook(p.win, 3, (1L << 1), key_release, &p);
+	wolf3d_init(&p);
+	ray_casting(&p);
+	mlx_loop_hook(p.mlx, move, &p);
+	mlx_loop(p.mlx);
 }
