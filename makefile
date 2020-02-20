@@ -6,7 +6,7 @@
 #    By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/17 11:51:30 by javrodri          #+#    #+#              #
-#    Updated: 2020/02/07 11:03:55 by javrodri         ###   ########.fr        #
+#    Updated: 2020/02/20 19:35:40 by javrodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,10 @@ SRCS 		=  	main.c \
 				draw.c \
 				imput_keys.c \
 				ray_casting.c \
-				parser.c 
+				parser.c  \
+				save_bmp.c \
+				ray_casting_bmp.c \
+				#sprite.c
 
 all: $(NAME)
 
@@ -35,27 +38,40 @@ $(NAME) : $(SRCS) cub3d.h
 			 @gcc $(SRCS) -lmlx -framework OpenGL -framework AppKit
 1:			
 			-@clear
+			 @echo "\n\033[0;33mCompiling...\n"
 			 @gcc $(SRCS) -lmlx -framework OpenGL -framework AppKit && ./a.out "maps/map1.cub"
+			 @echo "\033[0m"
 
 2:			
 			-@clear
+			 @echo "\n\033[0;33mCompiling...\n"
 			 @gcc $(SRCS) -lmlx -framework OpenGL -framework AppKit && ./a.out "maps/map2.cub"
+			 @echo "\033[0m"
 
 3:			
 			-@clear
+			 @echo "\n\033[0;33mCompiling...\n"
 			 @gcc $(SRCS) -lmlx -framework OpenGL -framework AppKit && ./a.out "maps/map3.cub"
-
+			 @echo "\033[0m"
 4:			
 			-@clear
+			 @echo "\n\033[0;33mCompiling...\n"
 			 @gcc $(SRCS) -lmlx -framework OpenGL -framework AppKit && ./a.out "maps/map4"
-
+			 @echo "\033[0m"
 5:			
 			-@clear
+			 @echo "\n\033[0;33mCompiling...\n"
 			 @gcc $(SRCS) -lmlx -framework OpenGL -framework AppKit && ./a.out "maps/map5"
+			 @echo "\033[0m"
 			 
 6:			
 			-@clear
+			 @echo "\n\033[0;33mCompiling...\n"
 			 @gcc $(SRCS) -lmlx -framework OpenGL -framework AppKit && ./a.out "maps/map0"
+			 @echo "\033[0m"
+
+debug:	 	
+			 @gcc $(SRCS) -g -lmlx -framework OpenGL -framework AppKit && ./a.out "maps/map2.cub"
 			
 clean:
 			-@$(RM) $(OBJS) 

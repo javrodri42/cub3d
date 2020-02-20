@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:46:47 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/07 14:00:25 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/14 11:05:33 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void        orientation_n(t_params *p, int i, int j)
 {
-    p->x_pos = i;
-    p->y_pos = j;
+    p->x_pos = i + 0.5;
+    p->y_pos = j + 0.5;
 	p->x_dir = -1;
 	p->y_dir = 0;
 	p->x_plane = 0;
@@ -24,8 +24,8 @@ void        orientation_n(t_params *p, int i, int j)
 
 void        orientation_s(t_params *p, int i, int j)
 {
-    p->x_pos = i;
-    p->y_pos = j;
+    p->x_pos = i + 0.5;
+    p->y_pos = j + 0.5;
 	p->x_dir = 1;
 	p->x_plane = 0;
 	p->y_plane = -0.66;
@@ -33,8 +33,8 @@ void        orientation_s(t_params *p, int i, int j)
 
 void        orientation_e(t_params *p, int i, int j)
 {
-    p->x_pos = i;
-    p->y_pos = j;
+    p->x_pos = i + 0.5;
+    p->y_pos = j + 0.5;
 	p->x_dir = 0;
 	p->y_dir = 1;
 	p->x_plane = 0.66;
@@ -43,8 +43,8 @@ void        orientation_e(t_params *p, int i, int j)
 
 void        orientation_w(t_params *p, int i, int j)
 {
-    p->x_pos = i;
-    p->y_pos = j;
+    p->x_pos = i + 0.5;
+    p->y_pos = j + 0.5;
 	p->x_dir = 0;
 	p->y_dir = -1;
 	p->x_plane = -0.66;

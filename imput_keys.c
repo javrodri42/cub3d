@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 10:51:17 by tglandai          #+#    #+#             */
-/*   Updated: 2020/02/07 17:19:03 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/18 11:56:49 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,11 @@ int		move(t_params *p)
 	if (p->move_up == 1)
 	{
 		if (p->map[(int)(p->x_pos + p->x_dir * p->ms)][(int)(p->y_pos)] == 0)
+		{
 			p->x_pos += p->x_dir * p->ms;
+			//printf("%f\n", p->map[(int)(p->x_pos + p->x_dir * p->ms)][(int)(p->y_pos)]);	
+		}
+			
 		if (p->map[(int)(p->x_pos)][(int)(p->y_pos + p->y_dir * p->ms)] == 0)
 			p->y_pos += p->y_dir * p->ms;
 	}

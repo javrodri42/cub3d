@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 08:03:54 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/07 17:12:23 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/20 19:41:08 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	mlx_win_init(t_params *p)
 
 	title = ft_strjoin("Wolf3d : ", p->map_name);
 	p->mlx = mlx_init();
-	p->win = mlx_new_window(p->mlx, WINX, WINY, title);
+	p->win = mlx_new_window(p->mlx, p->win_width, p->win_height, title);
 	ft_strdel(&title);
 }
 
@@ -45,21 +45,21 @@ void	wolf3d_init(t_params *p)
 	p->movespeed = 0.0001;
 	p->x_text = 0;
 	p->y_text = 0;
+	p->win_width = WINX;
+	p->win_height = WINY;
     p->map_width = 0;
     p->map_height = 0;
 	p->initial_pos = 0;
-	load_textures(p);
+	p->texture = 1;
+	if(!load_textures(p))
+		p->texture = 0;
+	
 }
 
 int		main(int ac, char **av)
 {
 	t_params p;
 
-	if (ac != 2)
-	{
-		ft_putstr(USAGE);
-		return (0);
-	}
 	if (!(map_parser(&p, av)))
 		return (0);
 	mlx_win_init(&p);
@@ -67,7 +67,10 @@ int		main(int ac, char **av)
 	mlx_hook(p.win, 2, (1L << 0), key_press, &p);
 	mlx_hook(p.win, 3, (1L << 1), key_release, &p);
 	wolf3d_init(&p);
-	ray_casting(&p);
+	if (ac == 3 && ft_strncmp(av[2], "--save", ft_strlen(av[2])) == 0)
+		ray_casting_bmp(&p);
+	else
+		ray_casting(&p);
 	mlx_loop_hook(p.mlx, move, &p);
 	mlx_loop(p.mlx);
 }

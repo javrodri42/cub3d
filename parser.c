@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/17 15:35:38 by tglandai          #+#    #+#             */
-/*   Updated: 2020/02/07 14:00:46 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/20 19:39:14 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void		map_error_check(t_params *p)
 {
 	int i;
-
 	if (p->nb_lines < 3 || p->lenline < 3)
 		close_failure("Error\nThis map is too small\n");
 	if (!p->initial_pos)
@@ -32,49 +31,47 @@ void		map_error_check(t_params *p)
 			close_failure("Error\nThis map isn't completely walled\n");
 }
 
+void	map_config_reader(t_params *p, int fd)
+{
+	char *line;
+
+	get_next_line(fd, &line);
+	if (line[0] != 'R' || line[1] != ' ')
+		close_failure("Error\nNo resolution defined\n");
+	if (!(p->win_width = ft_atoi(line + 2)))
+		close_failure("Error\nNo resolution defined\n");
+	line += ft_strlen(ft_itoa(p->win_width)) + 3;
+	if (!(p->win_height = ft_atoi(line)))
+		close_failure("Error\nNo resolution defined\n");
+	if (p->win_height > 720 || p->win_width > 1080)
+	{
+		p->win_height = 1080;
+		p->win_width = 720;
+	}
+	get_next_line(fd, &line);
+	if (ft_strlen(line) > 0)
+		close_failure("Error\nNo correct file format\n");
+	printf("p->win_height: %i\n", p->win_height);
+	printf("p->win_width: %i\n", p->win_width);
+
+}
+
 int		check_map(char *buff, t_params *p)
 {
 	int		i;
 	int		len;
-	//int		fd;
-	//char	*str;
+	char	*temp;
 
 	len = 0;
 	i = 0;
-	p->lenline = ft_linelen(buff);
-	p->nb_lines = ft_countlines(buff);
-	/*
-	//fd = open(av[1], O_RDONLY);
-	//while (get_next_line(fd, &str) > 0)
-	if (p->nb_lines < 3 || p->lenline < 3)
-		close_failure("Error\nThis map is too small\n");
-	if (!p->initial_pos)
-		printf("Initial pos: %i\n", p->initial_pos);
-		close_failure("Error\nThere isn't an initial position\n");
-	if (p->initial_pos > 1)
-		close_failure("Error\nThere's more than one initial position\n");
-	i = -1;
-	while (++i < p->lenline)
-		if (p->map[0][i] == 0 || p->map[p->nb_lines - 1][i] == 0)
-			close_failure("Error\nThis map isn't completely walled\n");
-	i = -1;
-	while (++i < p->nb_lines)
-		if (p->map[i][0] == 0 || p->map[i][p->lenline - 1] == 0)
-			close_failure("Error\nThis map isn't completely walled\n");
-	while (buff[i] && buff[i] != '\0')
-	{
-		if ((buff[i] < 48 || buff[i] > 57) && buff[i] != ' ' && buff[i] != '\n')
-			return (0);
-		len++;
-		
-		if (buff[i] == '\n')
-		{
-			if (len - 1 != p->lenline)
-				return (0);
-			len = 0;
-		}
-		i++;
-	}*/
+	if(!(temp = malloc(ft_strlen(buff) + 1)))
+		close_failure("Error\nUndefined\n");
+	temp = buff;
+
+	p->lenline = ft_linelen(temp);
+	p->nb_lines = ft_countlines(temp);
+	printf("Nb_lines: %i\n", p->nb_lines);
+	printf("Lenline: %i\n", p->lenline);
 	return (1);
 }
 
@@ -88,6 +85,7 @@ int		parser2(t_params *p, char **av)
 
 	i = 0;
 	fd = open(av[1], O_RDONLY);
+	//map_config_reader(p, fd);
 	while (get_next_line(fd, &str) > 0)
 	{
 		j = -1;
@@ -98,13 +96,21 @@ int		parser2(t_params *p, char **av)
 		{
 			if (str[k] == ' ')
 				k++;
-			p->map[i][j] = (str[k]) - '0';
-			k++;
+			if (str[k] == '1')
+			{
+				p->map[i][j] = (str[k]) - '0';
+				printf("%i", p->map[i][j]);
+				k++;
+			}
 		}
 		i++;
-		printf("%s\n", str);
+		printf("\n");
+		//printf("[%s]\n", str);
 		free(str);
+
 	}
+	free(str);
+
 	return (1);
 }
 
@@ -116,10 +122,10 @@ int		check_side(t_params *p)
 	while (i < p->lenline)
 	{
 		if (p->map[0][i] == 0)
-			write(1, "p->map[0][%i]\n", i);
+			write(1, "\n", 1);
 			return (0);
 		if (p->map[p->nb_lines - 1][i] == 0)
-			write(1, "p->map[1][%i]\n", i);
+			write(1, "\n", 1);
 			return (0);
 		i++;
 	}
@@ -127,14 +133,14 @@ int		check_side(t_params *p)
 	while (i < p->nb_lines)
 	{
 		if (p->map[i][0] == 0)
-			write(1, "p->map[0][%i]\n", i);
+			write(1, "\n", 1);
 			return (0);
 		if (p->map[i][p->lenline - 1] == 0)
-			write(1, "p->map[1][%i]\n", i);
+			write(1, "\n", 1);
 			return (0);
 		i++;
 	}
-	write(1, "p->map[0][%i]\n", i);
+	write(1, "\n", 1);
 	return (1);
 }
 
@@ -148,17 +154,9 @@ int		map_parser(t_params *p, char **av)
 	buff = ft_strnew(65536);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0 || (read(fd, buff, 65536)) < 1)
-	{
-		ft_putstr("wolf3d: ");
-		ft_putstr(av[1]);
-		ft_putstr(": No such file\n");
-		return (0);
-	}
+		close_failure("Error\nNo such file\n");
 	if (!(check_map(buff, p)))
-	{
-		ft_putstr("Map error (check_map)\n");
-		return (0);
-	}
+		close_failure("Error\nCheck map\n");
 	while (buff[i] != '\0' && buff[i] != '\n')
 	{
 		if (buff[i] == ' ')
@@ -168,16 +166,15 @@ int		map_parser(t_params *p, char **av)
 	ft_strdel(&buff);
 	p->map_name = av[1];
 	close(fd);
-	//parser2(p, av);
-	if (!(p->map = (int **)malloc(sizeof(int *) * p->nb_lines)) || !(parser2(p, av)))
+	if (!(p->map = (int **)malloc(sizeof(int *) * p->nb_lines + 1)) || !(parser2(p, av)))
 		return (0);
-	map_position(p);
-	map_error_check(p);
+	//map_position(p);
+	printf("Nb_lines: %i\n", p->nb_lines);
+	printf("Lenline: %i\n", p->lenline);
+
+	//map_reader_check(p, fd);
+	//map_error_check(p);
 	if (check_side(p))
-	{
-		ft_putstr("Map error(check_side)\n");
-		return (0);
-	}
-	//free(p->map);
+			close_failure("Error\nCheck side failure\n");
 	return (1);
 }

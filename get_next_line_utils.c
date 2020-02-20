@@ -6,111 +6,73 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:21:10 by fvega-tr          #+#    #+#             */
-/*   Updated: 2020/02/07 09:04:29 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/14 10:46:25 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-size_t	ft_strlen(const char *str)
+int ft_strlen(char *s)
 {
-	unsigned long int i;
+    int i = 0;
+    while (s[i] != '\0')
+        i++;
+    return (i);
+}
+
+char *ft_strchr(char *str, int c)
+{
+    unsigned int i = 0, leng;
+    if (!str)
+        return (NULL);
+    leng = ft_strlen(str);
+    while (*str && *str != c)
+    {
+        i++;
+        str++;
+    }
+    if (*str != c && i == leng)
+        return (NULL);
+    return (str);
+}
+
+char *ft_strjoin(char *s1, char *s2)
+{
+    int i = 0;
+    char *dest;
+    if (!(dest = malloc(ft_strlen(s1)+ ft_strlen(s2) + 1)))
+        return (NULL);
+    while (*s1 != '\0')
+        dest[i++] = *s1++;
+    while (*s2 != '\0')
+        dest[i++] = *s2++;
+    dest[i] = '\0';
+    return (dest);
+}
+
+char    *ft_strdup(char *str)
+{
+    int i = 0;
+    char *dest;
+    if (!(dest = malloc(ft_strlen(str) + 1)))
+        return (NULL);
+    while (str[i] != '\0')
+    {
+        dest[i] = str[i];
+        i++;
+    }
+    dest[i] = '\0';
+    return (dest);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t i;
 
 	i = 0;
-	while (str[i] != 0)
-	{
+	if (n == 0)
+		return (0);
+	while (i < n - 1 && s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
-	}
-	return (i);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	size_t	i;
-	size_t	l;
-	size_t	j;
-	char	*str;
-
-	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	l = ft_strlen(s1) + ft_strlen(s2);
-	str = (char*)malloc(sizeof(char*) * (l + 1));
-	if (str == NULL)
-		return (NULL);
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-	{
-		str[i + j] = s2[j];
-		j++;
-	}
-	str[i + j] = 0;
-	return (str);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s != 0)
-	{
-		if (*s == c)
-			return ((char *)s);
-		s++;
-	}
-	if (*s == c)
-		return ((char *)s);
-	return (NULL);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	int					i;
-	unsigned long int	l;
-	char				*s;
-
-	i = 0;
-	l = ft_strlen(s1);
-	s = (char*)malloc(sizeof(char) * (l + 1));
-	if (s == NULL)
-		return (NULL);
-	while (s1[i] != 0)
-	{
-		s[i] = s1[i];
-		i++;
-	}
-	s[i] = 0;
-	return (s);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*ptr;
-
-	ptr = (unsigned char*)s;
-	while (n-- > 0)
-		*(ptr++) = 0;
-}
-
-void	*ft_memmove(void *dst, const void *src, size_t len)
-{
-	size_t				i;
-	unsigned char		*ptr;
-	const unsigned char	*ptr2;
-
-	ptr = (unsigned char*)dst;
-	ptr2 = (unsigned char*)src;
-	i = 0;
-	if (dst == src)
-		return (dst);
-	if (ptr2 < ptr)
-		while (++i <= len)
-			ptr[len - i] = ptr2[len - i];
-	else
-		while (len-- > 0)
-			*(ptr++) = *(ptr2++);
-	return (dst);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
