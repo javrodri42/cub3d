@@ -6,15 +6,15 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:21:10 by fvega-tr          #+#    #+#             */
-/*   Updated: 2020/02/14 10:46:25 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/22 17:46:51 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int ft_strlen(char *s)
+size_t ft_strlen(const char *s)
 {
-    int i = 0;
+    size_t i = 0;
     while (s[i] != '\0')
         i++;
     return (i);
@@ -36,7 +36,7 @@ char *ft_strchr(char *str, int c)
     return (str);
 }
 
-char *ft_strjoin(char *s1, char *s2)
+char *ft_strjoin(char const *s1, char const *s2)
 {
     int i = 0;
     char *dest;
@@ -50,7 +50,7 @@ char *ft_strjoin(char *s1, char *s2)
     return (dest);
 }
 
-char    *ft_strdup(char *str)
+char    *ft_strdup(const char *str)
 {
     int i = 0;
     char *dest;

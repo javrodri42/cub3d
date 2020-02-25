@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:36:10 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/14 10:47:57 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/22 21:21:18 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 
 
 
-char	*ft_substr(char *s, unsigned int start, ssize_t len)
+char	*ft_substr(const char *s, unsigned int start, ssize_t len)
 {
 	char	*ptr;
 	char	*ret;
@@ -38,7 +38,7 @@ char	*ft_substr(char *s, unsigned int start, ssize_t len)
 
 	if (!s || !(ret = (char*)malloc(sizeof(char) * (len + 1))))
 		return (0);
-	if ((start >= ft_strlen(s)))
+	if (start >= ft_strlen(s))
 		ret[0] = '\0';
 	else
 	{
@@ -61,6 +61,7 @@ int		close_success(t_params *p)
 int		close_failure(char *message)
 {
 	ft_putstr(message);
+	//system("leaks a.out");
 	exit(EXIT_FAILURE);
     
 	return (1);

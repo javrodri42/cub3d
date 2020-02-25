@@ -6,7 +6,7 @@
 #    By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/17 11:51:30 by javrodri          #+#    #+#              #
-#    Updated: 2020/02/20 19:35:40 by javrodri         ###   ########.fr        #
+#    Updated: 2020/02/21 20:18:36 by javrodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ $(NAME) : $(SRCS) cub3d.h
 3:			
 			-@clear
 			 @echo "\n\033[0;33mCompiling...\n"
-			 @gcc $(SRCS) -lmlx -framework OpenGL -framework AppKit && ./a.out "maps/map3.cub"
+			 @gcc $(SRCS) -lmlx -framework OpenGL -framework AppKit && ./a.out "maps/map2.cub --save"
 			 @echo "\033[0m"
 4:			
 			-@clear

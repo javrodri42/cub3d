@@ -6,73 +6,52 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:56:49 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/11 18:14:38 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/25 17:02:16 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-static int		ft_estim(long n)
+static int	get_size(unsigned int nb)
 {
-	size_t	estim;
-	int		isneg;
+	unsigned int	size;
 
-	estim = 0;
-	isneg = 0;
+	size = 0;
+	while (nb >= 10)
+	{
+		nb /= 10;
+		++size;
+	}
+	return (size + 1);
+}
+
+char		*ft_itoa(int n)
+{
+	char			*str;
+	unsigned int	nb;
+	unsigned int	index;
+	unsigned int	size;
+	char			*aux;
+
 	if (n < 0)
-	{
-		estim++;
-		isneg++;
-		n = -n;
-	}
-	while (n >= 1)
-	{
-		estim++;
-		n /= 10;
-	}
-	return (estim);
-}
-
-static char		*ft_gen(char *rtn, long nbr, int len, int isneg)
-{
-	if (nbr != 0)
-		rtn = malloc(sizeof(char) * (len + 1));
+		nb = (unsigned int)(n * -1);
 	else
-		return (rtn = ft_strdup("0"));
-	if (!rtn)
-		return (0);
-	isneg = 0;
-	if (nbr < 0)
+		nb = (unsigned int)n;
+	size = (unsigned int)get_size(nb);
+	index = 0;
+	if (!(str = (char*)malloc(sizeof(char) * (size + 1 + (nb > 0 ? 1 : 0)))))
+		return (NULL);
+	if (n < 0 && (str[index] = '-'))
+		size++;
+	index = size - 1;
+	while (nb >= 10)
 	{
-		isneg++;
-		nbr = -nbr;
+		str[index--] = (char)(nb % 10 + 48);
+		nb /= 10;
 	}
-	rtn[len] = '\0';
-	while (--len)
-	{
-		rtn[len] = (nbr % 10) + '0';
-		nbr /= 10;
-	}
-	if (isneg == 1)
-		rtn[0] = '-';
-	else
-		rtn[0] = (nbr % 10) + '0';
-	return (rtn);
-}
-
-char			*ft_itoa(int n)
-{
-	int		len;
-	char	*rtn;
-	long	nbr;
-	int		isneg;
-
-	nbr = n;
-	len = ft_estim(nbr);
-	rtn = 0;
-	isneg = 0;
-	if (!(rtn = ft_gen(rtn, nbr, len, isneg)))
-		return (0);
-	return (rtn);
+	str[index] = (char)(nb % 10 + 48);
+	str[size] = '\0';
+	aux = (str);
+	free(str);
+	return (aux);
 }

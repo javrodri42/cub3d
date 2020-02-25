@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 12:17:40 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/19 09:54:56 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:51:40 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,4 @@ void	*ft_memset(void *b, int c, size_t len)
 		i++;
 	}
 	return (b);
-}
-
-int		ft_delete_spaces(char *line, int *i)
-{
-	while ((line[*i] == ' ' || line[*i] == '\t' || line[*i] == '\n')
-	|| (line[*i] == '\r' || line[*i] == '\v' || line[*i] == '\f'))
-		(*i)++;
-	return (1);
 }

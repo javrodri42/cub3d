@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/17 15:35:38 by tglandai          #+#    #+#             */
-/*   Updated: 2020/02/20 19:39:14 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/25 18:48:30 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,65 +15,95 @@
 void		map_error_check(t_params *p)
 {
 	int i;
+
 	if (p->nb_lines < 3 || p->lenline < 3)
 		close_failure("Error\nThis map is too small\n");
 	if (!p->initial_pos)
 		close_failure("Error\nThere isn't an initial position\n");
 	if (p->initial_pos > 1)
 		close_failure("Error\nThere's more than one initial position\n");
-	i = -1;
-	while (++i < p->lenline)
-		if (p->map[0][i] == 0 || p->map[p->nb_lines - 1][i] == 0)
-			close_failure("Error\nThis map isn't completely walled\n");
-	i = -1;
-	while (++i < p->nb_lines)
-		if (p->map[i][0] == 0 || p->map[i][p->lenline - 1] == 0)
-			close_failure("Error\nThis map isn't completely walled\n");
 }
-
-void	map_config_reader(t_params *p, int fd)
+/*
+static void	map_reader_2(t_params *p, int fd)
 {
 	char *line;
-
+	
 	get_next_line(fd, &line);
 	if (line[0] != 'R' || line[1] != ' ')
-		close_failure("Error\nNo resolution defined\n");
+		close_failure("Error\nNo resolution defined 1\n");
 	if (!(p->win_width = ft_atoi(line + 2)))
-		close_failure("Error\nNo resolution defined\n");
+		close_failure("Error\nNo resolution defined 2\n");
 	line += ft_strlen(ft_itoa(p->win_width)) + 3;
 	if (!(p->win_height = ft_atoi(line)))
-		close_failure("Error\nNo resolution defined\n");
-	if (p->win_height > 720 || p->win_width > 1080)
-	{
-		p->win_height = 1080;
-		p->win_width = 720;
-	}
-	get_next_line(fd, &line);
-	if (ft_strlen(line) > 0)
-		close_failure("Error\nNo correct file format\n");
-	printf("p->win_height: %i\n", p->win_height);
-	printf("p->win_width: %i\n", p->win_width);
+		close_failure("Error\nNo resolution defined 3\n");
+	
+	free(line);
+	printf("Win_height:%i\n", p->win_height);
+	printf("Win_width:%i\n", p->win_width);
 
-}
+}*/
 
 int		check_map(char *buff, t_params *p)
 {
 	int		i;
 	int		len;
-	char	*temp;
+	char 	*temp;
+
 
 	len = 0;
 	i = 0;
-	if(!(temp = malloc(ft_strlen(buff) + 1)))
-		close_failure("Error\nUndefined\n");
-	temp = buff;
 
-	p->lenline = ft_linelen(temp);
-	p->nb_lines = ft_countlines(temp);
-	printf("Nb_lines: %i\n", p->nb_lines);
-	printf("Lenline: %i\n", p->lenline);
+	
+	p->lenline = ft_linelen(buff);
+	p->nb_lines = ft_countlines(buff);
+	p->lenline = 24;
+	p->nb_lines = 24;
+	printf("Lenline:%i\n", p->lenline);
+	printf("NB_line:%i\n", p->nb_lines);
+
 	return (1);
 }
+
+void	parse_resolution(t_params *p, char *line)
+{
+	if (!(p->win_width = ft_atoi(line + 2)))
+		close_failure("Error\nNo resolution defined 2\n");
+	line += ft_strlen(ft_itoa(p->win_width)) + 3;
+	if (!(p->win_height = ft_atoi(line)))
+		close_failure("Error\nNo resolution defined 3\n");
+	//printf("Win_width:%i\n", p->win_width);
+	//printf("Win_height:%i\n", p->win_height);
+}
+
+void	south_texture(t_params *p, char *line)
+{
+	int i;
+
+	i = 0;
+	if (line[i++] == '.')
+	{
+------------------------------------------>>>>>>>>>>		ft_strcmp("./textures", line);
+	}	
+} 
+
+ void	parse_map_config(t_params *p, char *line)
+{
+	if (line[0] == 'R' && line[1] == ' ')
+		parse_resolution(p, line);
+	else if (line[0] == 'S')
+		south_texture(p, line);
+	/*else if (line[0] == 'N' && line[1] == 'O')
+		north_texture(p, line);
+	else if (line[0] == 'W' && line[1] == 'E')
+		west_texture(p, line);
+	else if (line[0] == 'E' && line[1] == 'A')
+		east_texture(p, line);
+	else if (line[0] == 'F')
+		floor_color(p, line);
+	else if (line[0] == 'C')
+		sky_color(p, line);*/	
+}
+
 
 int		parser2(t_params *p, char **av)
 {
@@ -81,51 +111,52 @@ int		parser2(t_params *p, char **av)
 	int		j;
 	int		k;
 	int		fd;
-	char	*str;
+	char	*line;
+	char	*aux;
 
 	i = 0;
 	fd = open(av[1], O_RDONLY);
-	//map_config_reader(p, fd);
-	while (get_next_line(fd, &str) > 0)
+	while (get_next_line(fd,&line) > 0)
 	{
 		j = -1;
 		k = 0;
-		if (!(p->map[i] = (int *)malloc(sizeof(int) * p->lenline)))
-			return (0);
-		while (++j < p->lenline)
+		if (line[0] == 'R' || line[0] == 'S' || line[0] == 'N' || line[0] == 'W' || 
+			line[0] == 'E' || line[0] == 'F' || line[0] == 'C')
+			parse_map_config(p, line);
+		if (line[0] == '1')
 		{
-			if (str[k] == ' ')
-				k++;
-			if (str[k] == '1')
+			if (!(p->map[i] = (int *)malloc(sizeof(int) * (p->lenline) + 1)))
+				return (0);
 			{
-				p->map[i][j] = (str[k]) - '0';
-				printf("%i", p->map[i][j]);
-				k++;
+				while (++j < p->lenline)
+				{
+					if (line[k] == ' ')
+						k++;
+					p->map[i][j] = (line[k]) - '0';
+					k++;
+				}
+				j++;
+				p->map[i][j] = '\n';
+				i++;
+				printf("%s\n", line);
 			}
 		}
-		i++;
-		printf("\n");
-		//printf("[%s]\n", str);
-		free(str);
-
+		free(line);
 	}
-	free(str);
-
+	free(line);
 	return (1);
 }
 
 int		check_side(t_params *p)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	while (i < p->lenline)
+	while (i < p->lenline - 1)
 	{
 		if (p->map[0][i] == 0)
-			write(1, "\n", 1);
 			return (0);
 		if (p->map[p->nb_lines - 1][i] == 0)
-			write(1, "\n", 1);
 			return (0);
 		i++;
 	}
@@ -133,14 +164,11 @@ int		check_side(t_params *p)
 	while (i < p->nb_lines)
 	{
 		if (p->map[i][0] == 0)
-			write(1, "\n", 1);
 			return (0);
 		if (p->map[i][p->lenline - 1] == 0)
-			write(1, "\n", 1);
 			return (0);
 		i++;
 	}
-	write(1, "\n", 1);
 	return (1);
 }
 
@@ -152,29 +180,43 @@ int		map_parser(t_params *p, char **av)
 
 	i = 0;
 	buff = ft_strnew(65536);
-	fd = open(av[1], O_RDONLY);
-	if (fd < 0 || (read(fd, buff, 65536)) < 1)
-		close_failure("Error\nNo such file\n");
+	if (!(fd = open(av[1], O_RDONLY)))
+		close_failure("ERROR\n No such file");
+	//map_reader_2(p,fd);
 	if (!(check_map(buff, p)))
-		close_failure("Error\nCheck map\n");
-	while (buff[i] != '\0' && buff[i] != '\n')
-	{
-		if (buff[i] == ' ')
-			p->lenline--;
-		i++;
-	}
-	ft_strdel(&buff);
+		close_failure("Error\nCheck map error\n");
+	free(buff);
 	p->map_name = av[1];
 	close(fd);
-	if (!(p->map = (int **)malloc(sizeof(int *) * p->nb_lines + 1)) || !(parser2(p, av)))
+	while (get_next_line(fd, &buff) > 0)
+	{
+		
+	}
+	if (!(p->map = (int **)malloc(sizeof(int *) * 50)) || !(parser2(p, av)))
 		return (0);
-	//map_position(p);
-	printf("Nb_lines: %i\n", p->nb_lines);
-	printf("Lenline: %i\n", p->lenline);
-
-	//map_reader_check(p, fd);
-	//map_error_check(p);
-	if (check_side(p))
-			close_failure("Error\nCheck side failure\n");
+	map_position(p);
+	map_error_check(p);
+	//print_map(p);
+	if (!(check_side(p)))
+			close_failure("Error\nCheck map side error\n");
+	print_map(p);
 	return (1);
+}
+
+void	print_map(t_params *p)
+{
+	int i;
+	int j;
+	
+	i = 0;
+	while (i < p->nb_lines)
+	{
+		j = 0;
+		while(j < p->lenline)
+		{
+			write(1, &p->map[i][j], 1);
+			j++;
+		}
+		i++;
+	}
 }

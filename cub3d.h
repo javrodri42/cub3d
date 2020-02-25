@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 08:05:12 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/20 19:41:41 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/25 11:20:57 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@
 # include <mlx.h>
 # include <math.h>
 # include <stdio.h>
-# include <time.h>
 
-
-# define WINX 1080
-# define WINY 720
+# define WINX 1024
+# define WINY 768
 # define USAGE "usage: wolf3d \"map\"\n"
-# define BUFF_SIZE 100
+# define BUFF_SIZE 8
+
 
 typedef struct	s_tex
 {
@@ -36,29 +35,6 @@ typedef struct	s_tex
 	int			sizeline;
 	int			endian;
 }				t_tex;
-/*
-typedef struct	s_sprites
-{
-  double		x;
-  double		y;
-  double		spriteX;
-  double		spriteY;
-  double		transformX;
-  double		transformY;
-  t_tex			tex;
-  int			sprite_height;
-  int			sprite_width;
-  int			draw_startX;
-  int			draw_startY;
-  int			draw_endX;	
-  int			draw_endY;
-  int			sprite_screenX;
-  int			fact;
-  int			draw_y_org;
-  int			stripe;
-  int			texX;
-}				t_sprites;
-*/
 
 typedef struct	s_wolf3d
 {
@@ -147,8 +123,8 @@ int				move(t_params *p);
 
 void			help_text(t_params *p);
 
-int 			load_textures(t_params *p);
-int 			load_textures2(t_params *p, int a, int b);
+void			load_textures(t_params *p);
+void			load_textures2(t_params *p, int a, int b);
 
 int				ft_close(t_params *p);
 void			mlx_win_init(t_params *p);
@@ -157,7 +133,6 @@ void			wolf3d_init(t_params *p);
 int				check_map(char *buff, t_params *p);
 int				map_parser(t_params *p, char **av);
 int				parser2(t_params *p, char **av);
-void			map_config_reader(t_params *p, int fd);
 
 void			ray_casting(t_params *p);
 void			ray_casting_init(t_params *p, int x);
@@ -166,7 +141,7 @@ void			dda(t_params *p);
 void			dda_init(t_params *p);
 
 void	        *ft_memcpy(void *dst, const void *src, size_t n);
-char	        *ft_substr(char *s, unsigned int start, ssize_t len);
+char	        *ft_substr(const char *s, unsigned int start, ssize_t len);
 int		        close_success(t_params *p);
 int		        close_failure(char *message);
 void	        ft_putchar(char c);
@@ -177,10 +152,10 @@ int		        ft_countlines(char *str);
 char	        *ft_strnew(size_t size);
 void	        *ft_memset(void *b, int c, size_t len);
 int			    get_next_line(const int fd, char **line);
-int	        	ft_strlen(char *s);
-char	        *ft_strjoin(char  *s1, char  *s2);
-char	        *ft_strchr(char *str, int c);
-char	        *ft_strdup(char *s1);
+size_t	        ft_strlen(const char *str);
+char	        *ft_strjoin(char const *s1, char const *s2);
+char	        *ft_strchr(char *s, int c);
+char	        *ft_strdup(const char *s1);
 void	        ft_putstr(const char *str);
 int			    ft_atoi(const char *str);
 char		    *ft_itoa(int n);
@@ -192,14 +167,12 @@ void			map_position(t_params *p);
 void			map_reader(t_params *p, char *map);
 void			ft_bzero(void *s, size_t n);
 void			*ft_memmove(void *dst, const void *src, size_t len);
-void			map_reader_check(t_params *p, char *line);
+void			map_reader_check(t_params *p, int fd);
 void			move_right_left(t_params *p);
+int         	save_bmp(t_params *p);
 void			ray_casting_bmp(t_params *p);
-int		        save_bmp(t_params *cub);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
-
-void 			draw_sprites(t_params *p);
-void			wall_orientation(t_params *p);
-int				ft_spaceskip(char *line, int *i);
+void			print_map(t_params *p);
+void			tex_walls(t_params *p);
 
 #endif
