@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 08:05:12 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/25 11:20:57 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/26 09:13:50 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ typedef struct	s_wolf3d
 	double		y_curfloortext;
 	double		curdist;
 	double		weight;
+	char		*so_tex;
+	char		*no_tex;
+	char		*ea_tex;
+	char		*we_tex;
 }				t_params;
 
 void			draw_sky(t_params *p);
@@ -174,5 +178,7 @@ void			ray_casting_bmp(t_params *p);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 void			print_map(t_params *p);
 void			tex_walls(t_params *p);
+char			*ft_skipspace_beg(char *s);
+
 
 #endif

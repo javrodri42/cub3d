@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/17 15:35:38 by tglandai          #+#    #+#             */
-/*   Updated: 2020/02/25 18:48:30 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/26 10:02:13 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,30 +75,39 @@ void	parse_resolution(t_params *p, char *line)
 	//printf("Win_height:%i\n", p->win_height);
 }
 
-void	south_texture(t_params *p, char *line)
+char 	*parse_tex(char *line)
 {
 	int i;
 
 	i = 0;
-	if (line[i++] == '.')
-	{
------------------------------------------->>>>>>>>>>		ft_strcmp("./textures", line);
-	}	
-} 
+	while (line[i] == 'R' || line[i] == 'S' || line[i] == 'N' || line[i] == 'W' || 
+			line[i] == 'E' || line[i] == 'F' || line[i] == 'C' || line[i] == ' ' ||
+			line[i] == 'O' || line[i] == 'A' || line[i] == '.' || line[i] == '/')
+			i++;
+	return(&line[i]);
+}
+/*
+void	south_texture(t_params *p, char *line)
+{
+	char	*so_tex;
+	
+	so_tex = parse_tex(line);
+	p->so_tex = so_tex;
+} */
 
  void	parse_map_config(t_params *p, char *line)
 {
 	if (line[0] == 'R' && line[1] == ' ')
 		parse_resolution(p, line);
 	else if (line[0] == 'S')
-		south_texture(p, line);
-	/*else if (line[0] == 'N' && line[1] == 'O')
-		north_texture(p, line);
+		p->so_tex = ft_strdup(parse_tex(line));
+	else if (line[0] == 'N' && line[1] == 'O')
+		p->no_tex = ft_strdup(parse_tex(line));
 	else if (line[0] == 'W' && line[1] == 'E')
-		west_texture(p, line);
+		p->we_tex = ft_strdup(parse_tex(line));
 	else if (line[0] == 'E' && line[1] == 'A')
-		east_texture(p, line);
-	else if (line[0] == 'F')
+		p->ea_tex = ft_strdup(parse_tex(line));
+	/*else if (line[0] == 'F')
 		floor_color(p, line);
 	else if (line[0] == 'C')
 		sky_color(p, line);*/	

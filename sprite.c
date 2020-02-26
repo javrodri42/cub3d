@@ -6,11 +6,11 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 10:08:11 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/21 19:59:58 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/26 10:36:54 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*#include "cub3d.h"
+#include "cub3d.h"
 
 void draw_sprites(t_params *p)
 {
@@ -46,5 +46,5 @@ void draw_sprites(t_params *p)
             while ()
         }
         s->stripe++;
-    }*/
+    }
 }

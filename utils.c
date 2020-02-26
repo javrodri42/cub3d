@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:36:10 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/22 21:21:18 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/26 09:13:39 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,21 @@ int		close_failure(char *message)
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
+}
+
+char	*ft_skipspace_beg(char *s)
+{
+	unsigned int	len;
+
+	if (s)
+	{
+		len = ft_strlen(s);
+		if (len == 0)
+			return (s);
+		while (*s != '\0' && (*s == ' ' || *s == '\n' || *s == '\t'))
+			s++;
+		return (s);
+	}
+	else
+		return (NULL);
 }
