@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 08:05:12 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/26 09:13:50 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/27 16:35:52 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # define WINY 768
 # define USAGE "usage: wolf3d \"map\"\n"
 # define BUFF_SIZE 8
+# define NUMSPRITES 10
+# define SCREENWIDTH 4000
+
+
 
 
 typedef struct	s_tex
@@ -34,7 +38,16 @@ typedef struct	s_tex
 	int			bpp;
 	int			sizeline;
 	int			endian;
+	
 }				t_tex;
+
+typedef struct s_sprite
+{
+	double		x;
+	double		y;
+	t_tex		tex;
+}				t_sprites;
+
 
 typedef struct	s_wolf3d
 {
@@ -64,6 +77,14 @@ typedef struct	s_wolf3d
 	int			start;
 	int			end;
 	int			color;
+	int			floor_color;
+	int			ceiling_color;
+	char		char_red[20];
+	char		char_green[20];
+	char		char_blue[20];
+	int			red;
+	int			blue;
+	int 		green;
 	int			move_up;
 	int			move_down;
 	int			move_left;
@@ -112,6 +133,32 @@ typedef struct	s_wolf3d
 	char		*no_tex;
 	char		*ea_tex;
 	char		*we_tex;
+	char		*zBuffer;
+	char		*path_sprite;
+	t_sprites	sprite[10];
+	double		spr_buffer[SCREENWIDTH];
+	int			spr_order[10];
+	double		spr_dist[10];
+	int			sprtexx;
+	int			sprtexy;
+	double		spritex;
+	double		spritey;
+	double		invdet;
+	double		transformx;
+	double		transformy;
+	int			spritescreenx;
+	int			spriteheight;
+	int			drawstarty;
+	int			drawendy;
+	int			spritewidth;
+	int			drawstartx;
+	int			drawendx;
+	int			stripe;
+	int			d;
+	int			tex_width;
+	int			tex_height;
+	int			sprite_posx;
+	int 		sprite_posy;
 }				t_params;
 
 void			draw_sky(t_params *p);
@@ -176,9 +223,23 @@ void			move_right_left(t_params *p);
 int         	save_bmp(t_params *p);
 void			ray_casting_bmp(t_params *p);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
-void			print_map(t_params *p);
-void			tex_walls(t_params *p);
+void			print_map(t_params *p, char *line);
+void			orientation_tex_walls(t_params *p);
 char			*ft_skipspace_beg(char *s);
+void			parse_color(t_params *p, char *line);
+int				translate_color(int r, int g, int b);
+void			map_size(t_params *p, char **av);
+int				ft_isdigit(int c);
+size_t			ft_strlen_digits(const char *s);
+
+/*
+**	SPRITES
+*/
+
+void		    sprite_casting(t_params *p);
+
+
+
 
 
 #endif

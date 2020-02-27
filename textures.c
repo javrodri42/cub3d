@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 14:44:53 by tglandai          #+#    #+#             */
-/*   Updated: 2020/02/26 10:06:47 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/27 13:33:49 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	load_textures(t_params *p)
 			p->we_tex, &a, &b);
 	p->tex[3].data = mlx_get_data_addr(p->tex[3].img, &p->tex[3].bpp,
 			&p->tex[3].sizeline, &p->tex[3].endian);
-	p->tex[4].img = mlx_xpm_file_to_image(p->mlx, "textures/wood.xpm", &a, &b);
+	p->tex[4].img = mlx_xpm_file_to_image(p->mlx, p->ea_tex, &a, &b);
 	p->tex[4].data = mlx_get_data_addr(p->tex[4].img, &p->tex[4].bpp,
 			&p->tex[4].sizeline, &p->tex[4].endian);
 	load_textures2(p, a, b);
@@ -48,16 +48,19 @@ void	load_textures2(t_params *p, int a, int b)
 	p->tex[6].img = mlx_xpm_file_to_image(p->mlx, "textures/pix_art_sky.xpm", &a, &b);
 	p->tex[6].data = mlx_get_data_addr(p->tex[6].img, &p->tex[6].bpp,
 			&p->tex[6].sizeline, &p->tex[6].endian);
+	p->sprite[0].tex.img = mlx_xpm_file_to_image(p->mlx, p->so_tex, &a, &b);
+	p->sprite[0].tex.data = mlx_get_data_addr(p->sprite[0].tex.img, &p->sprite[0].tex.bpp,
+			&p->sprite[0].tex.sizeline, &p->sprite[0].tex.endian);
 }
 
-void	tex_walls(t_params *p)
+void	orientation_tex_walls(t_params *p)
 {
 	if (p->side == 0 && p->x_raydir > 0)
 		p->id = 0;
 	else if (p->side == 0 && p->x_raydir < 0)
 		p->id = 1;
 	else if (p->side == 1 && p->y_raydir > 0)
-		p->id = 2;
+		p->id = 4;
 	else if (p->side == 1 && p->y_raydir < 0)
 		p->id = 3;
 			

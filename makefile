@@ -6,7 +6,7 @@
 #    By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/17 11:51:30 by javrodri          #+#    #+#              #
-#    Updated: 2020/02/21 20:18:36 by javrodri         ###   ########.fr        #
+#    Updated: 2020/02/27 08:59:09 by javrodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRCS 		=  	main.c \
 				parser.c  \
 				save_bmp.c \
 				ray_casting_bmp.c \
-				#sprite.c
+				sprite.c
 
 all: $(NAME)
 

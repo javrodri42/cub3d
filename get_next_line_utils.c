@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:21:10 by fvega-tr          #+#    #+#             */
-/*   Updated: 2020/02/22 17:46:51 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/26 17:21:13 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@ size_t ft_strlen(const char *s)
     size_t i = 0;
     while (s[i] != '\0')
         i++;
+    return (i);
+}
+
+size_t ft_strlen_digits(const char *s)
+{
+    size_t i = 0;
+    size_t j = 0;
+
+    while (s[j] != '\0')
+    {
+        if (s[j] >= '0' && s[j] <= '9')
+            i++;
+        j++;
+    }
     return (i);
 }
 

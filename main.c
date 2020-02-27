@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 08:03:54 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/22 18:05:16 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/27 10:46:47 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int		ft_close(t_params *p)
 {
 	(void)p;
-	//mlx_destroy_image(p->mlx, p->img_ptr);
-	//free(p->map);
 	system("leaks a.out");
 	exit(EXIT_SUCCESS);
 	return (0);
@@ -28,7 +26,7 @@ void	mlx_win_init(t_params *p)
 
 	title = ft_strjoin("Wolf3d : ", p->map_name);
 	p->mlx = mlx_init();
-	p->win = mlx_new_window(p->mlx, WINX, WINY, title);
+	p->win = mlx_new_window(p->mlx, p->win_width, p->win_height, title);
 	ft_strdel(&title);
 }
 
@@ -48,6 +46,11 @@ void	wolf3d_init(t_params *p)
     p->map_width = 0;
     p->map_height = 0;
 	p->initial_pos = 0;
+	p->texture = 1;
+	p->tex_width = 64;
+	p->tex_height = 64;
+	p->sprite[2].x = 4;
+	p->sprite[2].y = 6;
 	load_textures(p);
 }
 

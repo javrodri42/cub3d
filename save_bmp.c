@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 18:34:47 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/21 19:59:58 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/26 10:45:27 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static int  write_bmp_header(int fd, int filesize, t_params *p)
     set_int_char(bmpfileheader + 2, filesize);
     bmpfileheader[10] = (unsigned char)(54);
     bmpfileheader[14] = (unsigned char)(40);
-    set_int_char(bmpfileheader + 18, WINX);
-    set_int_char(bmpfileheader + 22, WINY);
+    set_int_char(bmpfileheader + 18, p->win_width);
+    set_int_char(bmpfileheader + 22, p->win_height);
     bmpfileheader[27] = (unsigned char)(1);
     bmpfileheader[28] = (unsigned char)(24);
     return (!(write(fd, bmpfileheader, 54) < 0));
@@ -41,8 +41,8 @@ static int  get_color(t_params *p, int x, int y)
 {
     int rgb;
     int color;
-    color = *(int*)(p->img_ptr + (4 * (int)WINX *
-    ((int)WINY - 1 - y)) + (4 * x));
+    color = *(int*)(p->img_ptr + (4 * (int)p->win_width *
+    ((int)p->win_height - 1 - y)) + (4 * x));
     rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
     return (rgb);
 }
@@ -53,10 +53,10 @@ static int  write_bmp_data(int file, t_params *p, int pad)
     int                 j;
     int                 color;
     i = 0;
-    while (i < (int)WINY)
+    while (i < (int)p->win_height)
     {
         j = 0;
-        while (j < (int)WINX)
+        while (j < (int)p->win_width)
         {
             color = get_color(p, j, i);
             if (write(file, &color, 3) < 0)
@@ -74,9 +74,9 @@ int         save_bmp(t_params *p)
     int filesize;
     int file;
     int pad;
-    pad = (4 - ((int)WINX * 3) % 4) % 4;
-    filesize = 54 + (3 * ((int)WINX + pad)
-    * (int)WINY);
+    pad = (4 - ((int)p->win_width * 3) % 4) % 4;
+    filesize = 54 + (3 * ((int)p->win_width + pad)
+    * (int)p->win_height);
     if ((file = open("screenshot.bmp", O_WRONLY | O_CREAT
     | O_TRUNC | O_APPEND, 777)) < 0)
         return (0);
