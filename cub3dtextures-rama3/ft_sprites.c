@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sprites.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amunoz-p <amunoz-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 15:11:52 by amunoz-p          #+#    #+#             */
-/*   Updated: 2020/01/31 19:35:01 by amunoz-p         ###   ########.fr       */
+/*   Updated: 2020/02/28 17:57:28 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ void		draw_sprites(t_cub *cub)
 	cub->sprite_y = (double)cub->sprite_posy - cub->pos_y;
 	calculate_sprites(cub);
 	x = cub->draw_start_x - 1;
+
+	printf("invdet:%f\n", cub->inv_det);
+	printf("transformX:%f\n", cub->transform_x);
+	printf("trasnformY:%f\n", cub->transform_y);
+	printf("sprite_width :%i\n", cub->sprite_width);
+	printf("sprite_height:%i\n", cub->sprite_height);
+	printf("x:            %i\n", x);
+	//printf("draw_start_x: %i\n", cub->draw_start_x);
+	//printf("draw_end_x:   %i\n", cub->draw_end_x);
+	printf("\n");
 	while (++x < cub->draw_end_x)
 	{
 		cub->tex_x = (int)(256 * (x - (-cub->sprite_width / 2 +

@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 13:49:39 by tglandai          #+#    #+#             */
-/*   Updated: 2020/02/27 13:57:37 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/28 13:22:24 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,16 @@ void	floor_and_ceiling(t_params *p, int x)
 
 void	ray_casting(t_params *p)
 {
-	p->x = -1;
+	int x;
+	
+	p->x = 0;
 	p->img = mlx_new_image(p->mlx, p->win_width, p->win_height);
 	p->img_ptr = mlx_get_data_addr(p->img, &p->bpp, &p->sl, &p->endian);
 	if (p->texture ==1)
 		draw_sky(p);
 	//draw_floor(p);
 	orientation_tex_walls(p);
-	while (++p->x < p->win_width)
+	while (p->x < p->win_width)
 	{
 		ray_casting_init(p, p->x);
 		p->lineheight = (int)(p->win_height / p->walldist);
@@ -136,8 +138,11 @@ void	ray_casting(t_params *p)
 			p->color = 0x00FF00;
 		draw_wall(p->x, p->start - 1, p->end, p);
 		floor_and_ceiling(p, p->x);
+		
+		p->spr_buffer[p->x] = p->walldist;
+		p->x++;
 	}
-	sprite_casting(p);
+	//sprite_casting(p);
+	draw_sprites(p);
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
-	mlx_destroy_image(p->mlx, p->img);
-}
+ }

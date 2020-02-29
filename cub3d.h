@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 08:05:12 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/27 16:35:52 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/02/28 13:02:36 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_sprite
 
 typedef struct	s_wolf3d
 {
-	t_tex		tex[9];
+	t_tex		tex[30];
 	char		*map_name;
 	void		*mlx;
 	void		*win;
@@ -133,10 +133,10 @@ typedef struct	s_wolf3d
 	char		*no_tex;
 	char		*ea_tex;
 	char		*we_tex;
-	char		*zBuffer;
+	char		*zbuffer;
 	char		*path_sprite;
-	t_sprites	sprite[10];
-	double		spr_buffer[SCREENWIDTH];
+	t_sprites	sprite[20];
+	int			*spr_buffer;
 	int			spr_order[10];
 	double		spr_dist[10];
 	int			sprtexx;
@@ -237,6 +237,8 @@ size_t			ft_strlen_digits(const char *s);
 */
 
 void		    sprite_casting(t_params *p);
+void		    draw_sprites(t_params *p);
+
 
 
 
