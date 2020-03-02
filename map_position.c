@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:46:47 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/27 13:56:31 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:57:47 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,6 @@ void	map_position(t_params *p)
 					orientation_w(p, i, j);
 				p->map[i][j] = 0;
 			}
-		}
-		if (p->map[i][j] == '2')
-		{
-			printf("aqui");
-			p->sprite[1].x = i;
-			p->sprite[1].y = j;
-			printf("[%i]", p->map[i][j]);
 		}
 	}
 }

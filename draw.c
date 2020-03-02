@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 20:41:03 by tglandai          #+#    #+#             */
-/*   Updated: 2020/02/27 12:19:54 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/02 18:09:48 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	put_pxl_to_img(t_params *p, int x, int y, int color)
 {
 	if (p->texture == 1 && x < p->win_width && y < p->win_height)
 	{
-		p->y_text = abs((((y * 256 - p->win_height * 128 + p->lineheight * 128) * 64)
+		p->y_text = abs((((y * 256 - p->win_height * 128 +
+			p->lineheight * 128) * 64)
 					/ p->lineheight) / 256);
 		ft_memcpy(p->img_ptr + 4 * p->win_width * y + x * 4,
 				&p->tex[p->id].data[p->y_text % 64 * p->tex[p->id].sizeline +

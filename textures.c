@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 14:44:53 by tglandai          #+#    #+#             */
-/*   Updated: 2020/02/27 13:33:49 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/02 10:00:27 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ void	load_textures2(t_params *p, int a, int b)
 	p->tex[6].img = mlx_xpm_file_to_image(p->mlx, "textures/pix_art_sky.xpm", &a, &b);
 	p->tex[6].data = mlx_get_data_addr(p->tex[6].img, &p->tex[6].bpp,
 			&p->tex[6].sizeline, &p->tex[6].endian);
+	p->tex[20].img = mlx_xpm_file_to_image(p->mlx, "textures/barrel.xpm", &a, &b);
+	p->tex[20].data = mlx_get_data_addr(p->tex[20].img, &p->tex[20].bpp,
+			&p->tex[20].sizeline, &p->tex[20].endian);
 	p->sprite[0].tex.img = mlx_xpm_file_to_image(p->mlx, p->so_tex, &a, &b);
 	p->sprite[0].tex.data = mlx_get_data_addr(p->sprite[0].tex.img, &p->sprite[0].tex.bpp,
 			&p->sprite[0].tex.sizeline, &p->sprite[0].tex.endian);

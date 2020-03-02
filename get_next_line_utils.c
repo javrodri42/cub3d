@@ -5,38 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/12 18:21:10 by fvega-tr          #+#    #+#             */
-/*   Updated: 2020/02/26 17:21:13 by javrodri         ###   ########.fr       */
+/*   Created: 2020/01/12 18:21:10 by javrodri          #+#    #+#             */
+/*   Updated: 2020/03/02 17:35:08 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-size_t ft_strlen(const char *s)
+size_t  ft_strlen(const char *s)
 {
-    size_t i = 0;
+    size_t  i;
+
+    i = 0;
     while (s[i] != '\0')
         i++;
     return (i);
 }
 
-size_t ft_strlen_digits(const char *s)
+char    *ft_strchr(char *str, int c)
 {
-    size_t i = 0;
-    size_t j = 0;
+    unsigned int    i;
+    unsigned int    leng;
 
-    while (s[j] != '\0')
-    {
-        if (s[j] >= '0' && s[j] <= '9')
-            i++;
-        j++;
-    }
-    return (i);
-}
-
-char *ft_strchr(char *str, int c)
-{
-    unsigned int i = 0, leng;
+    i = 0;
     if (!str)
         return (NULL);
     leng = ft_strlen(str);
@@ -50,9 +41,11 @@ char *ft_strchr(char *str, int c)
     return (str);
 }
 
-char *ft_strjoin(char const *s1, char const *s2)
+char    *ft_strjoin(char const *s1, char const *s2)
 {
-    int i = 0;
+    int i;
+    
+    i = 0;
     char *dest;
     if (!(dest = malloc(ft_strlen(s1)+ ft_strlen(s2) + 1)))
         return (NULL);
@@ -79,14 +72,14 @@ char    *ft_strdup(const char *str)
     return (dest);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int     ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t i;
+    size_t i;
 
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (i < n - 1 && s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
-		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+    i = 0;
+    if (n == 0)
+        return (0);
+    while (i < n - 1 && s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+        i++;
+    return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/20 13:49:39 by tglandai          #+#    #+#             */
-/*   Updated: 2020/02/28 13:22:24 by javrodri         ###   ########.fr       */
+/*   Created: 2016/12/20 13:49:39 by javrodri          #+#    #+#             */
+/*   Updated: 2020/03/02 18:09:36 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,12 @@ void	dda(t_params *p)
 		}
 		if (p->map[p->x_map][p->y_map] == 1)
 			p->hit = 1;
+		if (p->map[p->x_map][p->y_map] == 2)
+		{
+			p->sprite_posx = p->x_map;
+			p->sprite_posy = p->y_map;
+
+		}
 	}
 }
 
@@ -87,7 +93,6 @@ void	floor_and_ceiling(t_params *p, int x)
 	{
 		if (p->start > 0)
 		{
-			//p->color = 0x66CCFF;
 			p->y = -1;
 			if (x < p->win_width && p->y < p->win_height)
 				while (++p->y < p->start)
@@ -101,7 +106,6 @@ void	floor_and_ceiling(t_params *p, int x)
 	{
 		if (p->end > 0)
 		{
-			//p->floor_color = 0x555555;
 			p->y = p->end - 1;
 			if (x < p->win_width && p->y < p->win_height)
 				while (++p->y < p->win_height)
@@ -111,7 +115,7 @@ void	floor_and_ceiling(t_params *p, int x)
 	}
 }
 
-void	ray_casting(t_params *p)
+void	 ray_casting(t_params *p)
 {
 	int x;
 	
@@ -120,7 +124,7 @@ void	ray_casting(t_params *p)
 	p->img_ptr = mlx_get_data_addr(p->img, &p->bpp, &p->sl, &p->endian);
 	if (p->texture ==1)
 		draw_sky(p);
-	//draw_floor(p);
+	draw_floor(p);
 	orientation_tex_walls(p);
 	while (p->x < p->win_width)
 	{
@@ -142,7 +146,6 @@ void	ray_casting(t_params *p)
 		p->spr_buffer[p->x] = p->walldist;
 		p->x++;
 	}
-	//sprite_casting(p);
 	draw_sprites(p);
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
  }

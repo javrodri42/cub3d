@@ -6,7 +6,7 @@
 #    By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/17 11:51:30 by javrodri          #+#    #+#              #
-#    Updated: 2020/02/27 08:59:09 by javrodri         ###   ########.fr        #
+#    Updated: 2020/03/02 19:03:01 by javrodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,12 @@ NAME = cub3d.a
 
 SRCS 		=  	main.c \
 				utils.c 	\
+				utils_2.c \
+				utils_3.c \
 				get_next_line.c \
-				map_reader.c \
 				ft_atoi.c \
 				ft_itoa.c \
 				ft_putstr.c \
-				utils_2.c \
 				get_next_line_utils.c \
 				map_position.c \
 				textures.c \
@@ -27,6 +27,8 @@ SRCS 		=  	main.c \
 				imput_keys.c \
 				ray_casting.c \
 				parser.c  \
+				parser2.c  \
+				parser3.c  \
 				save_bmp.c \
 				ray_casting_bmp.c \
 				sprite.c

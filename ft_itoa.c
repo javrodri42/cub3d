@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 12:56:49 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/25 17:02:16 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/02 11:01:24 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char		*ft_itoa(int n)
 	unsigned int	nb;
 	unsigned int	index;
 	unsigned int	size;
-	char			*aux;
 
 	if (n < 0)
 		nb = (unsigned int)(n * -1);
@@ -51,7 +50,5 @@ char		*ft_itoa(int n)
 	}
 	str[index] = (char)(nb % 10 + 48);
 	str[size] = '\0';
-	aux = (str);
-	free(str);
-	return (aux);
+	return (str);
 }

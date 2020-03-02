@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 18:20:58 by fvega-tr          #+#    #+#             */
-/*   Updated: 2020/02/11 18:00:08 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:52:07 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int  get_line(char **mem, char **line, int ret)
 {
     char *aux1;
     char *aux2;
+    
     if (!*mem && !ret)
     {
         *line = ft_strdup("");

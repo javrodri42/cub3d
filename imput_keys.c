@@ -6,20 +6,11 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 10:51:17 by tglandai          #+#    #+#             */
-/*   Updated: 2020/02/27 10:45:42 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/02 17:52:49 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int		key_press2(int keycode, t_params *p)
-{
-	if (p->texture == 0)
-			p->texture = 1;
-		else
-			p->texture = 0;
-	return (0);
-}
 
 int		key_press(int keycode, t_params *p)
 {
