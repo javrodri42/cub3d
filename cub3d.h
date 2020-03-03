@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 08:05:12 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/28 13:02:36 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/03 08:00:30 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,11 @@ int				translate_color(int r, int g, int b);
 void			map_size(t_params *p, char **av);
 int				ft_isdigit(int c);
 size_t			ft_strlen_digits(const char *s);
+void			parse_map_config(t_params *p, char *line);
+void			map_error_check(t_params *p);
+void			map_size(t_params *p, char **av);
+char 			*parse_tex(char *line);
+void			parse_resolution(t_params *p, char *line);
 
 /*
 **	SPRITES

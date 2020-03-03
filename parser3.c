@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 18:59:44 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/02 19:00:10 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/03 17:54:57 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,9 @@ void	map_size(t_params *p, char **av)
 	while (get_next_line(fd,&line) > 0)
 	{
 		if (line[0] == '1')
-		{
+		{	
 			p->lenline = ft_strlen_digits(line);
-			p->nb_lines++;
-			
+			p->nb_lines++;			
 		}
 		free(line);
 	}

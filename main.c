@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 08:03:54 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/02 17:56:17 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/03 17:55:30 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,17 @@ int		main(int ac, char **av)
 {
 	t_params p;
 
-	if (ac != 2)
+	if (ac < 2)
 	{
 		ft_putstr(USAGE);
+
 		return (0);
 	}
 	if (!(map_parser(&p, av)))
 		return (0);
 	mlx_win_init(&p);
+	if (!(p.spr_buffer = malloc(sizeof(double) * p.win_width)))
+		close_failure("ERROR\nBuffer error");
 	mlx_hook(p.win, 17, 0L, ft_close, &p);
 	mlx_hook(p.win, 2, (1L << 0), key_press, &p);
 	mlx_hook(p.win, 3, (1L << 1), key_release, &p);
@@ -71,11 +74,8 @@ int		main(int ac, char **av)
 	if (ac == 3 && ft_strncmp("--save", av[2], 6) == 0)
 		ray_casting_bmp(&p);
 	else
-	{
-		if (!(p.spr_buffer = malloc(sizeof(double) * p.win_width)))
-			close_failure("ERROR\nBuffer error");
 		ray_casting(&p);
-	}
 	mlx_loop_hook(p.mlx, move, &p);
 	mlx_loop(p.mlx);
+	free(p.spr_buffer);
 }

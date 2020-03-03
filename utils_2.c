@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 12:17:40 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/26 16:04:02 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/03 15:28:13 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ int	ft_strcmp(char *s1, char *s2)
 
 void	ft_strdel(char **as)
 {
-	if (!as)
-		return ;
-	free(*as);
-	*as = NULL;
+	if (as != NULL)
+	{
+		free(*as);
+		*as = NULL;
+	}
 }
 
 size_t	ft_linelen(const char *s)

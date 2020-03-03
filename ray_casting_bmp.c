@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 19:49:48 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/02 19:03:34 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/03 08:46:45 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	 ray_casting_bmp(t_params *p)
 	p->img_ptr = mlx_get_data_addr(p->img, &p->bpp, &p->sl, &p->endian);
 	if (p->texture ==1)
 		draw_sky(p);
-	//draw_floor(p);
+	draw_floor(p);
 	orientation_tex_walls(p);
 	while (p->x < p->win_width)
 	{
@@ -37,7 +37,6 @@ void	 ray_casting_bmp(t_params *p)
 			p->color = 0x00FF00;
 		draw_wall(p->x, p->start - 1, p->end, p);
 		floor_and_ceiling(p, p->x);
-		
 		p->spr_buffer[p->x] = p->walldist;
 		p->x++;
 	}
@@ -45,3 +44,4 @@ void	 ray_casting_bmp(t_params *p)
 	save_bmp(p);
 	ft_close(p);
  }
+ 

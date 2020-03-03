@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 13:49:39 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/02 18:09:36 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/03 08:15:45 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,6 @@ void	floor_and_ceiling(t_params *p, int x)
 
 void	 ray_casting(t_params *p)
 {
-	int x;
-	
 	p->x = 0;
 	p->img = mlx_new_image(p->mlx, p->win_width, p->win_height);
 	p->img_ptr = mlx_get_data_addr(p->img, &p->bpp, &p->sl, &p->endian);
@@ -142,7 +140,6 @@ void	 ray_casting(t_params *p)
 			p->color = 0x00FF00;
 		draw_wall(p->x, p->start - 1, p->end, p);
 		floor_and_ceiling(p, p->x);
-		
 		p->spr_buffer[p->x] = p->walldist;
 		p->x++;
 	}
