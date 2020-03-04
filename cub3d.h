@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 08:05:12 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/03 08:00:30 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/04 08:06:35 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ typedef struct	s_wolf3d
 	int			tex_height;
 	int			sprite_posx;
 	int 		sprite_posy;
+	int 		i;
 }				t_params;
 
 void			draw_sky(t_params *p);
@@ -236,6 +237,7 @@ void			map_error_check(t_params *p);
 void			map_size(t_params *p, char **av);
 char 			*parse_tex(char *line);
 void			parse_resolution(t_params *p, char *line);
+void			copy_map(char *line, t_params *p);
 
 /*
 **	SPRITES

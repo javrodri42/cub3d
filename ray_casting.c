@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 13:49:39 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/03 08:15:45 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/04 10:26:24 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	dda(t_params *p)
 		{
 			p->sprite_posx = p->x_map;
 			p->sprite_posy = p->y_map;
-
 		}
 	}
 }
@@ -115,14 +114,13 @@ void	floor_and_ceiling(t_params *p, int x)
 	}
 }
 
-void	 ray_casting(t_params *p)
+void	ray_casting(t_params *p)
 {
 	p->x = 0;
 	p->img = mlx_new_image(p->mlx, p->win_width, p->win_height);
 	p->img_ptr = mlx_get_data_addr(p->img, &p->bpp, &p->sl, &p->endian);
-	if (p->texture ==1)
+	if (p->texture == 1)
 		draw_sky(p);
-	draw_floor(p);
 	orientation_tex_walls(p);
 	while (p->x < p->win_width)
 	{
@@ -145,4 +143,4 @@ void	 ray_casting(t_params *p)
 	}
 	draw_sprites(p);
 	mlx_put_image_to_window(p->mlx, p->win, p->img, 0, 0);
- }
+}

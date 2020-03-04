@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 18:58:50 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/02 18:58:59 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/04 08:28:17 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ void	parse_resolution(t_params *p, char *line)
 int		translate_color(int r, int g, int b)
 {
 	int	rgb;
-	
+
 	rgb = r;
 	rgb = (rgb << 8) + g;
 	rgb = (rgb << 16) + b;
 	return (rgb);
 }
 
-void		parse_color(t_params *p, char *line)
+void	parse_color(t_params *p, char *line)
 {
 	int i;
 	int j;
-	
+
 	i = 2;
 	j = 0;
 	while (line[i] != ',')
@@ -62,14 +62,15 @@ void		parse_color(t_params *p, char *line)
 		p->char_blue[j++] = line[i++];
 }
 
-char 	*parse_tex(char *line)
+char	*parse_tex(char *line)
 {
 	int i;
 
 	i = 0;
-	while (line[i] == 'R' || line[i] == 'S' || line[i] == 'N' || line[i] == 'W' || 
-			line[i] == 'E' || line[i] == 'F' || line[i] == 'C' || line[i] == ' ' ||
-			line[i] == 'O' || line[i] == 'A' || line[i] == '.' || line[i] == '/')
-			i++;
-	return(&line[i]);
+	while (line[i] == 'R' || line[i] == 'S' || line[i] == 'N' ||
+			line[i] == 'W' || line[i] == 'E' || line[i] == 'F' ||
+			line[i] == 'C' || line[i] == ' ' || line[i] == 'O' ||
+			line[i] == 'A' || line[i] == '.' || line[i] == '/')
+		i++;
+	return (&line[i]);
 }

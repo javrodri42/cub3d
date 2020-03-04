@@ -6,15 +6,14 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 18:59:44 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/03 17:54:57 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/04 08:32:02 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
- void	parse_map_config(t_params *p, char *line)
+void	parse_map_config(t_params *p, char *line)
 {
-
 	if (line[0] == 'R' && line[1] == ' ')
 		parse_resolution(p, line);
 	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
@@ -30,30 +29,31 @@
 	else if (line[0] == 'F' && line[1] == ' ')
 	{
 		parse_color(p, line);
-		p->floor_color = translate_color(ft_atoi(p->char_red), ft_atoi(p->char_green), ft_atoi(p->char_blue));
+		p->floor_color = translate_color(ft_atoi(p->char_red),
+			ft_atoi(p->char_green), ft_atoi(p->char_blue));
 	}
 	else if (line[0] == 'C' && line[1] == ' ')
 	{
 		parse_color(p, line);
-		p->ceiling_color = translate_color(ft_atoi(p->char_red), ft_atoi(p->char_green), ft_atoi(p->char_blue));
+		p->ceiling_color = translate_color(ft_atoi(p->char_red),
+			ft_atoi(p->char_green), ft_atoi(p->char_blue));
 	}
 }
 
 void	map_size(t_params *p, char **av)
 {
-	
 	int		fd;
 	char	*line;
 	char	*aux;
 
-	p->nb_lines = 0;	
+	p->nb_lines = 0;
 	fd = open(av[1], O_RDONLY);
-	while (get_next_line(fd,&line) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		if (line[0] == '1')
-		{	
+		{
 			p->lenline = ft_strlen_digits(line);
-			p->nb_lines++;			
+			p->nb_lines++;
 		}
 		free(line);
 	}

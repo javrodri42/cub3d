@@ -6,18 +6,18 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 19:49:48 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/03 08:46:45 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/04 10:47:05 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	 ray_casting_bmp(t_params *p)
+void	ray_casting_bmp(t_params *p)
 {
 	p->x = 0;
 	p->img = mlx_new_image(p->mlx, p->win_width, p->win_height);
 	p->img_ptr = mlx_get_data_addr(p->img, &p->bpp, &p->sl, &p->endian);
-	if (p->texture ==1)
+	if (p->texture == 1)
 		draw_sky(p);
 	draw_floor(p);
 	orientation_tex_walls(p);
@@ -43,5 +43,4 @@ void	 ray_casting_bmp(t_params *p)
 	draw_sprites(p);
 	save_bmp(p);
 	ft_close(p);
- }
- 
+}

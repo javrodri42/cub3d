@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/17 15:35:38 by tglandai          #+#    #+#             */
-/*   Updated: 2020/03/03 15:27:45 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/04 08:06:47 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,49 @@
 
 int		parser2(t_params *p, char **av)
 {
-	int		i;
-	int		j;
 	int		k;
 	int		fd;
 	char	*line;
 	char	*aux;
 
-	i = 0;
+	p->i = 0;
 	fd = open(av[1], O_RDONLY);
-	while (get_next_line(fd,&line) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
-		j = -1;
-		k = 0;
-		if (line[0] == 'R' || line[0] == 'S' || line[0] == 'N' || line[0] == 'W' || 
-			line[0] == 'E' || line[0] == 'F' || line[0] == 'C'|| line[0] == 'T')
+		if (line[0] == 'R' || line[0] == 'S' || line[0] == 'N' ||
+			line[0] == 'W' || line[0] == 'E' || line[0] == 'F' ||
+			line[0] == 'C' || line[0] == 'T')
 			parse_map_config(p, line);
 		if (line[0] == '1')
 		{
 			print_map(p, line);
-			if (!(p->map[i] = (int *)malloc(sizeof(int) * (p->lenline) + 1)))
+			if (!(p->map[p->i] = (int *)malloc(sizeof(int) * (p->lenline) + 1)))
 				return (0);
-			{
-				while (++j < p->lenline)
-				{
-					if (line[k] == ' ')
-						k++;
-					p->map[i][j] = (line[k]) - '0';
-					k++;
-				}
-				j++;
-				p->map[i][j] = '\n';
-				i++;
-			}
+			copy_map(line, p);
 		}
 		free(line);
 	}
 	free(line);
 	return (1);
+}
+
+void	copy_map(char *line, t_params *p)
+{
+	int		j;
+	int		k;
+
+	j = -1;
+	k = 0;
+	while (++j < p->lenline)
+	{
+		if (line[k] == ' ')
+			k++;
+		p->map[p->i][j] = (line[k]) - '0';
+		k++;
+	}
+	j++;
+	p->map[p->i][j] = '\n';
+	p->i++;
 }
 
 int		check_side(t_params *p)
@@ -98,7 +103,7 @@ int		map_parser(t_params *p, char **av)
 	map_position(p);
 	map_error_check(p);
 	if (!(check_side(p)))
-			close_failure("Error\nCheck map side error\n");
+		close_failure("Error\nCheck map side error\n");
 	return (1);
 }
 
