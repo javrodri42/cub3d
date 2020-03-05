@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 14:46:47 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/02 17:57:47 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:08:08 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	map_position(t_params *p)
 {
 	int i;
 	int j;
-
+	
 	i = -1;
 	while (++i < p->nb_lines)
 	{

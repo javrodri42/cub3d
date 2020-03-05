@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 18:59:44 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/04 08:32:02 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:49:41 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,43 @@ void	parse_map_config(t_params *p, char *line)
 	}
 }
 
-void	map_size(t_params *p, char **av)
+void	check_walled(t_params *p)
 {
-	int		fd;
-	char	*line;
-	char	*aux;
+	int i;
+	int j;
 
-	p->nb_lines = 0;
-	fd = open(av[1], O_RDONLY);
-	while (get_next_line(fd, &line) > 0)
+	i = 0;
+	while (p->map[i][j])
 	{
-		if (line[0] == '1')
+		j = 0;
+		while (p->map[i][j] != '\n')
 		{
-			p->lenline = ft_strlen_digits(line);
-			p->nb_lines++;
+			printf("%i", p->map[i][j]);
+			if (p->map[i][j] == 0 ||  p->map[i][j] == 2)
+			{
+				if (p->map[i - 1][j - 1] == 9 || 
+					p->map[i - 1][j] == 9 ||
+					p->map[i - 1][j + 1] == 9 ||
+					p->map[i][j - 1] == 9 ||
+					p->map[i][j + 1] == 9 ||
+					p->map[i + 1][j - 1] == 9 ||
+					p->map[i - 1][j] == 9 ||
+					p->map[i + 1][j + 1] == 9) 
+					close_failure("Error\nThe map isnt completly walled\n");
+			}
+			j++;
 		}
-		free(line);
+		printf("\n");
+		i++;
+	write(1, "a", 1);
 	}
-	free(line);
+}
+
+int		ft_isspace(int c)
+{
+	c = (unsigned char)c;
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r'
+		|| c == ' ')
+		return (1);
+	return (0);
 }

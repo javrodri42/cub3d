@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 08:03:54 by javrodri          #+#    #+#             */
-/*   Updated: 2020/03/03 17:55:30 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/05 18:41:58 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_close(t_params *p)
 {
 	(void)p;
-	system("leaks a.out");
+	//system("leaks a.out");
 	exit(EXIT_SUCCESS);
 	return (0);
 }
