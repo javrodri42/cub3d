@@ -6,13 +6,13 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 12:17:40 by javrodri          #+#    #+#             */
-/*   Updated: 2020/01/28 11:51:40 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/06 16:27:38 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_strcmp(char *s1, char *s2)
+int		ft_strcmp(char *s1, char *s2)
 {
 	int i;
 
@@ -24,10 +24,11 @@ int	ft_strcmp(char *s1, char *s2)
 
 void	ft_strdel(char **as)
 {
-	if (!as)
-		return ;
-	free(*as);
-	*as = NULL;
+	if (as != NULL)
+	{
+		free(*as);
+		*as = NULL;
+	}
 }
 
 size_t	ft_linelen(const char *s)
@@ -64,19 +65,4 @@ char	*ft_strnew(size_t size)
 		return (NULL);
 	ft_memset(str, (int)'\0', size + 1);
 	return (str);
-}
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	unsigned char	*tmp;
-	size_t			i;
-
-	tmp = (unsigned char *)b;
-	i = 0;
-	while (i < len)
-	{
-		tmp[i] = (unsigned char)c;
-		i++;
-	}
-	return (b);
 }

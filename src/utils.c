@@ -6,7 +6,7 @@
 /*   By: javrodri <javrodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:36:10 by javrodri          #+#    #+#             */
-/*   Updated: 2020/02/05 12:31:47 by javrodri         ###   ########.fr       */
+/*   Updated: 2020/03/07 13:42:17 by javrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	}
 	return (0);
 }
-
-
 
 char	*ft_substr(const char *s, unsigned int start, ssize_t len)
 {
@@ -54,15 +52,17 @@ char	*ft_substr(const char *s, unsigned int start, ssize_t len)
 int		close_success(t_params *p)
 {
 	(void)p;
-	exit(EXIT_SUCCESS);
+
+	ft_close(p);
 	return (0);
 }
 
 int		close_failure(char *message)
 {
+	t_params *p;
+
 	ft_putstr(message);
-	exit(EXIT_FAILURE);
-    
+	ft_close(p);
 	return (1);
 }
 

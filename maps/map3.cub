@@ -1,8 +1,18 @@
-R 1920 1080
+R 1080 720
+
+EA ./textures/mossy.xpm
+NO ./textures/redbrick.xpm
+SO ./textures/wood.xpm
+WE ./textures/stone.xpm
+
+T  ./sprites/barrel.xpm
+
+F 84,78,76
+C 26,5,30
 
 111111111
 100000001
-100000001
+100000000
 100000001
 10N000001
 100000001
